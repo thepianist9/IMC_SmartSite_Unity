@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SceneTransitionHandler">
+    <Position X="9.75" Y="3.25" Width="2.5" />
+    <NestedTypes>
+      <Delegate Name="SceneTransitionHandler.ClientLoadedSceneDelegateHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\SceneTransitionHandler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="SceneTransitionHandler.SceneStateChangedDelegateHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\SceneTransitionHandler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Enum Name="SceneTransitionHandler.SceneStates" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\SceneTransitionHandler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAGCAAAEAAAAEICgABEAhAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\SceneTransitionHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

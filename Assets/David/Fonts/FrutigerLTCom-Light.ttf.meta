@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 789b0f2e84ea43549bbb79cc502a0568
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Frutiger LT Com
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: d224f7d0e41684c4bb69adec73379989, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
