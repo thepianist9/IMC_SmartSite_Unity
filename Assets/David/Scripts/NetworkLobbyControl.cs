@@ -1,8 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using TMPro;
-using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +10,6 @@ public class NetworkLobbyControl : NetworkBehaviour
     //private NetworkList<FixedString128Bytes> m_UsernameList;
     [SerializeField]
     public string m_InGameSceneName = "NetworkedSession";
-    [SerializeField] private GameObject m_Prefab;
 
     [SerializeField] GameObject m_ServerTextGO;
     [SerializeField] GameObject m_ClientTextGO;
@@ -25,8 +20,6 @@ public class NetworkLobbyControl : NetworkBehaviour
     // Minimum player count required to transition to next level
     [SerializeField]
     private int m_MinimumPlayerCount = 1;
-
-    public TMP_Text LobbyText;
     private bool m_AllPlayersInLobby;
 
 

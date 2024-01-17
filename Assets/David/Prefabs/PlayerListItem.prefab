@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8695491058457210267}
   - component: {fileID: 9113912150842116572}
-  - component: {fileID: 9044950309125572814}
+  - component: {fileID: 1139388565314232923}
   m_Layer: 5
   m_Name: PlayerListItem
   m_TagString: Untagged
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &9044950309125572814
+--- !u!114 &1139388565314232923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9044950309125572814}
+      - m_Target: {fileID: 1139388565314232923}
         m_TargetAssemblyTypeName: ClientStatusRPC, Assembly-CSharp
         m_MethodName: ReadyPlayer
         m_Mode: 1

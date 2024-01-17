@@ -1,3 +1,4 @@
+using StarterAssets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ public class PlayerStatsUI : NetworkBehaviour
 
     [SerializeField] GameObject m_BtnGroup;
     [SerializeField] ServerConfig m_ServerConfig;
-
+    private ThirdPersonController tpc;
 
     // Start is called before the first frame update
 
@@ -61,14 +62,18 @@ public class PlayerStatsUI : NetworkBehaviour
         }
         else if(scene.name == "NetworkedSession")
         {
+            
             _toggle.onValueChanged.AddListener(ToggleNetworkChat);
+            
         }
     }
 
 
     private void ToggleNetworkChat(bool isOn)
     {
+        tpc = GameObject.Find("Player_" + NetworkManager.Singleton.LocalClientId).GetComponent<ThirdPersonController>();
         ChatGO.SetActive(isOn);
+        tpc.enabled = !isOn;
     }
 
 

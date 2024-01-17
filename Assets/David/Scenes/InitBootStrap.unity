@@ -576,7 +576,7 @@ MonoBehaviour:
   IsServer: 0
   serverList: []
   server: {fileID: 0}
-  serversInfoPath: C:/Fraunhofer/Users/David/Projects/imc_smartsite_unity/Assets\ServersInfo.json
+  serversInfoPath: C:/Fraunhofer/Users/David/Projects/imc_smartsite/Assets/ServersInfo.json
 --- !u!114 &1062886687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,6 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LobbySceneName: SmartSiteLobby
+  m_NetworkedSession: NetworkedSession
   IsOnline: 0
   m_ClientType: 
   m_userName: 
