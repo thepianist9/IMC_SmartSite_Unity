@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/David/Scenes/StartMenu.unity
     guid: c9d66e38175011d498324e033f874e4c
-  - enabled: 1
+  - enabled: 0
     path: Assets/David/Scenes/SmartSiteLobby.unity
     guid: 2d727e32a01b73849b6bb72f75f81136
   - enabled: 0
@@ -29,6 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/David/Scenes/NetworkedRoomSession.unity
     guid: 2bdee9b519938a4468770f7c5db1ad67
+  - enabled: 0
+    path: Assets/StarterAssets/ThirdPersonController/Scenes/Playground.unity
+    guid: e9017d5f96b9f09489b4b37e1d6eb914
+  - enabled: 0
+    path: Assets/StarterAssets/FirstPersonController/Scenes/Playground.unity
+    guid: 707acc8dffb72b144bb1ffbe1c965f3d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6eaa3ba33ebd11e41bc5e6168d8474fe, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 737334875c3804343b276a6a2593381f, type: 2}

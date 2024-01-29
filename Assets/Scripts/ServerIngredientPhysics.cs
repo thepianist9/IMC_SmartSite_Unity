@@ -14,6 +14,7 @@ public class ServerIngredientPhysics : NetworkBehaviour
     
     public override void OnNetworkObjectParentChanged(NetworkObject parentNetworkObject)
     {
+        
         SetPhysics(parentNetworkObject == null);
     }
 

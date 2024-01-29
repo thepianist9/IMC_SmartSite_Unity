@@ -70,7 +70,12 @@ public class ServerCheck : MonoBehaviour
 
                     IsServer = true;
                     SetServer(server.ipAddress);
+                    //Start server directly on machine:
+                    //NetworkSystemControl.Singleton.StartSessionOnline();
+
                     UIManager.Instance.DisplayServerMenu(server);
+
+                    
 
                     return;
                 }

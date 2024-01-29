@@ -1,13 +1,12 @@
 using StarterAssets;
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using Unity.Netcode;
-using UnityEditor.PackageManager;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms;
+
 using UnityEngine.UI;
 
 public class PlayerStatsUI : NetworkBehaviour
@@ -21,6 +20,7 @@ public class PlayerStatsUI : NetworkBehaviour
     [SerializeField] GameObject m_ClientTextGO;
     [SerializeField] GameObject ChatGO;
     [SerializeField] Toggle _toggle;
+    [SerializeField] TMP_Text _PlayerPanel;
 
     [SerializeField] GameObject m_BtnGroup;
     [SerializeField] ServerConfig m_ServerConfig;
@@ -59,6 +59,7 @@ public class PlayerStatsUI : NetworkBehaviour
         if (scene.name == "OfflineSession")
         {
             Client LocalClient = ServerCheck.Instance.LocalClient;
+            DisplayOfflinePanel();
         }
         else if(scene.name == "NetworkedSession")
         {
@@ -74,6 +75,12 @@ public class PlayerStatsUI : NetworkBehaviour
         tpc = GameObject.Find("Player_" + NetworkManager.Singleton.LocalClientId).GetComponent<ThirdPersonController>();
         ChatGO.SetActive(isOn);
         tpc.enabled = !isOn;
+    }
+
+
+    private void DisplayOfflinePanel( )
+    {
+        _PlayerPanel.text = $"PC Name: {ServerCheck.Instance.m_PcName}";
     }
 
 

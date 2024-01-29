@@ -5,11 +5,11 @@
 	},
 	{
 	"pcname": "Server #2",
-      	"ipaddress": "192.168.2.62",
+      	"ipaddress": "192.168.2.63",
       	"Type": "Internet"
 	},
 	{
 	"pcname": "Server #3",
-      	"ipaddress": "172.16.28.250",
+      	"ipaddress": "172.16.28.251",
       	"Type": "Local"
 	}]

@@ -53,10 +53,8 @@ public class ClientPlayerMove : NetworkBehaviour
     private void Update()
     {
         if (!Cursor.visible)
-        {
             Cursor.visible = true;
-        }
-        if (Input.GetKey(KeyCode.Space))
+        if (Cursor.lockState == CursorLockMode.Locked || Cursor.lockState == CursorLockMode.Confined)
             Cursor.lockState = CursorLockMode.None;
     }
 
