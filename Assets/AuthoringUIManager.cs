@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.Mathematics;
 using Unity.Netcode;
 using Unity.Netcode.Components;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 
 public class AuthoringUIManager : NetworkBehaviour 
 {
-
+    [SerializeField] private int TotalNetworkGOs;
     [SerializeField] private GameObject _ButtonGroup;
     [SerializeField] private GameObject Model;
     [SerializeField] private Button _SpawnModelBtn;
@@ -16,6 +17,7 @@ public class AuthoringUIManager : NetworkBehaviour
     [SerializeField] private Transform _ParentEnvironment;
     [SerializeField] private int spawnYOffset;
     [SerializeField] private int spawnZOffset;
+    [SerializeField] private TMP_Text NetworkObjectsTMP;
 
     private Transform playerTransform;
     private void OnEnable()
@@ -74,6 +76,7 @@ public class AuthoringUIManager : NetworkBehaviour
         go.GetComponent<Rigidbody>().isKinematic = false;
         go.GetComponent<NetworkObject>().enabled = false;
         go.GetComponent<NetworkTransform>().enabled = false;
+        
     }     
     
     private void SpawnModelNetworked()
@@ -88,6 +91,7 @@ public class AuthoringUIManager : NetworkBehaviour
             go.GetComponent<NetworkObject>().enabled = true;
             go.GetComponent<NetworkTransform>().enabled = true;
             go.GetComponent<NetworkObject>().Spawn();
+            
         }
         else
         {
@@ -95,7 +99,9 @@ public class AuthoringUIManager : NetworkBehaviour
             Debug.Log("[RPC]: Sending request to server");
             InitPrefabServerRpc("", position, rotation, NetworkManager.Singleton.LocalClientId);
         }
-        
+        TotalNetworkGOs += 1;
+        NetworkObjectsTMP.text = $"Network Objects in Scene: {TotalNetworkGOs}";
+
     }    
 
     private void SpawnCube()

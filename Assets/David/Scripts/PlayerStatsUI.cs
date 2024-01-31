@@ -168,6 +168,7 @@ public class PlayerStatsUI : NetworkBehaviour
 
         if(NetworkSystemControl.Singleton.IsOnline)
         {
+            NetworkManager.Singleton.Shutdown();
             base.OnDestroy();
         }
         // Always invoked the base 

@@ -54,7 +54,7 @@ public class ConnectionNotificationManager : NetworkBehaviour
     {
         NetworkManager.Singleton.Shutdown();
         // At this point we must use the UnityEngine's SceneManager to switch back to the MainMenu
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("StartMenu");
     }
 
     private void OnDestroy()
@@ -77,6 +77,8 @@ public class ConnectionNotificationManager : NetworkBehaviour
     private void OnClientDisconnectCallback(ulong clientId)
     {
         OnClientConnectionNotification?.Invoke(clientId, ConnectionStatus.Disconnected);
+        ServerConfig.Instance.connectedClients.Remove(clientId);
+        PlayerStatsUI.Singleton.UpdateOnlinePanel();
     }
 
 }
