@@ -23,7 +23,7 @@ public class NetworkRoomManager : NetworkBehaviour
 
     public void StartNetworkRoom()
     {
-        if (IsServer && !string.IsNullOrEmpty(m_SceneName))
+        if (IsServer && !string.IsNullOrEmpty(m_SceneName) && !IsSceneLoaded("NetworkedRoomSession"))
         {
             var status = NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Additive);
             if (status != SceneEventProgressStatus.Started)
@@ -32,5 +32,22 @@ public class NetworkRoomManager : NetworkBehaviour
                       $"with a {nameof(SceneEventProgressStatus)}: {status}");
             }
         }
+    }
+
+    bool IsSceneLoaded(string sceneName)
+    {
+        // Iterate through all loaded scenes
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene loadedScene = SceneManager.GetSceneAt(i);
+
+            // Check if the loaded scene has the specified name
+            if (loadedScene.name == sceneName)
+            {
+                return true; // Scene is loaded
+            }
+        }
+
+        return false; // Scene is not loaded
     }
 }

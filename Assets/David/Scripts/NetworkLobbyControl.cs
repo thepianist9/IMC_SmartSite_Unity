@@ -113,7 +113,7 @@ public class NetworkLobbyControl : NetworkBehaviour
         foreach (Transform tr in m_ClientTextGO.transform)
         {
             go = tr.gameObject;
-            img = tr.GetChild(2).gameObject.GetComponentInChildren<Image>();
+            img = tr.GetChild(3).gameObject.GetComponentInChildren<Image>();
             switch (SharedSpaceLobby[ulong.Parse(go.name)])
             {
                 case UserStatus.Idle:

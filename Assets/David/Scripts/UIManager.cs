@@ -137,7 +137,7 @@ public class UIManager : MonoBehaviour
         {
             img.color = Color.green;
             //Set IP if server responds
-            m_IPv4AddIPField.text = server.ipAddress;
+            m_IPv4AddIPFieldRemote.text = server.ipAddress;
             
             //Set Type if server responds
             m_NetworkType.text = server.Type;
