@@ -13,10 +13,11 @@ public class AuthoringUIManager : NetworkBehaviour
     [SerializeField] private GameObject Model;
     [SerializeField] private Button _SpawnModelBtn;
     [SerializeField] private Button _SpawnCubeBtn;
-
+    [SerializeField] private Transform _ParentEnvironment;
     [SerializeField] private int spawnYOffset;
     [SerializeField] private int spawnZOffset;
 
+    private Transform playerTransform;
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -44,24 +45,32 @@ public class AuthoringUIManager : NetworkBehaviour
 
     private Vector3 GetPlayerPosition()
     {
-        return GameObject.Find("PlayerArmature_Offline").transform.position;
+        playerTransform = GameObject.Find("PlayerArmature_Offline").transform;
+        Vector3 spawnPosition = playerTransform.position + playerTransform.forward * spawnZOffset + Vector3.up * spawnYOffset;
+        return spawnPosition;
     }private quaternion GetPlayerRotation()
     {
-        return GameObject.Find("PlayerArmature_Offline").transform.rotation;
-    }private Vector3 GetPlayerPositionNetworked()
+        playerTransform = GameObject.Find("PlayerArmature_Offline").transform;
+        return playerTransform.rotation;
+    }
+    private Vector3 GetPlayerPositionNetworked()
     {
-        return GameObject.Find("Player_" + NetworkManager.Singleton.LocalClientId).transform.position;
-    }private quaternion GetPlayerRotationNetworked()
+        playerTransform = GameObject.Find("Player_" + NetworkManager.Singleton.LocalClientId).transform;
+        Vector3 spawnPosition = playerTransform.position + playerTransform.forward * spawnZOffset + Vector3.up * spawnYOffset;
+        return spawnPosition;
+    }
+    private quaternion GetPlayerRotationNetworked()
     {
-        return GameObject.Find("Player_" + NetworkManager.Singleton.LocalClientId).transform.rotation;
+        playerTransform = GameObject.Find("Player_" + NetworkManager.Singleton.LocalClientId).transform;
+        return playerTransform.rotation;
     }
 
     private void SpawnModel()
     {
-        Vector3 position = GetPlayerPosition() + Vector3.forward * spawnZOffset + Vector3.up * spawnYOffset;
+        Vector3 position = GetPlayerPosition();
         Quaternion rotation = GetPlayerRotation();
         //spawn
-       GameObject go = Instantiate(Model, position, Quaternion.identity);
+       GameObject go = Instantiate(Model, position, rotation, _ParentEnvironment);
         go.GetComponent<Rigidbody>().isKinematic = false;
         go.GetComponent<NetworkObject>().enabled = false;
         go.GetComponent<NetworkTransform>().enabled = false;
@@ -69,13 +78,13 @@ public class AuthoringUIManager : NetworkBehaviour
     
     private void SpawnModelNetworked()
     {
-        Vector3 position = GetPlayerPositionNetworked() + Vector3.forward * spawnZOffset + Vector3.up * spawnYOffset;
+        Vector3 position = GetPlayerPositionNetworked();
         Quaternion rotation = GetPlayerRotationNetworked();
 
         //spawn
         if(NetworkManager.Singleton.IsServer)
         {
-            GameObject go = Instantiate(Model, position, Quaternion.identity);
+            GameObject go = Instantiate(Model, position, rotation, _ParentEnvironment);
             go.GetComponent<NetworkObject>().enabled = true;
             go.GetComponent<NetworkTransform>().enabled = true;
             go.GetComponent<NetworkObject>().Spawn();
@@ -114,7 +123,7 @@ public class AuthoringUIManager : NetworkBehaviour
     private void InitPrefabServerRpc(string craftPrefab, Vector3 position, Quaternion rotation, ulong id)
     {
         Debug.Log($"[RPC]: Instantiating prefab requested from client {id}");
-        GameObject go = Instantiate(Model, position, Quaternion.identity);
+        GameObject go = Instantiate(Model, position, Quaternion.identity, _ParentEnvironment);
         go.GetComponent<NetworkObject>().enabled = true;
         go.GetComponent<NetworkTransform>().enabled = true;
         go.GetComponent<NetworkObject>().Spawn();

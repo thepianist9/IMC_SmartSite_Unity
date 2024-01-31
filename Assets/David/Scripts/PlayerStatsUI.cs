@@ -80,7 +80,7 @@ public class PlayerStatsUI : NetworkBehaviour
 
     private void DisplayOfflinePanel( )
     {
-        _PlayerPanel.text = $"PC Name: {ServerCheck.Instance.m_PcName}";
+        _PlayerPanel.text = $"UserName: {ServerCheck.Instance.LocalClient.userName}";
     }
 
 
@@ -106,9 +106,9 @@ public class PlayerStatsUI : NetworkBehaviour
                     if (m_ServerConfig.clientID.Value == gc.clientId.Value)
                     {
                         //Add to server slot in panel
-                        GameObject go = GameObject.Instantiate(m_TMPPrefab, m_ServerTextGO.transform);
+                        GameObject go = Instantiate(m_TMPPrefab, m_ServerTextGO.transform);
                         go.name = gc.clientId.Value.ToString();
-                        go.transform.GetChild(2).gameObject.GetComponent<Image>().color = Color.gray;
+                        go.transform.GetChild(3).gameObject.GetComponent<Image>().color = Color.gray;
 
                         go.GetComponentInChildren<TMP_Text>().text = $"UserName: {gc.userName.Value}  Net. ID: {gc.clientId.Value}";
                         if (gc.clientId.Value == NetworkManager.Singleton.LocalClientId)
@@ -120,9 +120,9 @@ public class PlayerStatsUI : NetworkBehaviour
                     //Add to client slots in panel
                     else
                     {
-                        GameObject go = GameObject.Instantiate(m_TMPPrefab, m_ClientTextGO.transform);
+                        GameObject go = Instantiate(m_TMPPrefab, m_ClientTextGO.transform);
                         go.name = gc.clientId.Value.ToString();
-                        go.transform.GetChild(2).gameObject.GetComponent<Image>().color = Color.gray;
+                        go.transform.GetChild(3).gameObject.GetComponent<Image>().color = Color.gray;
 
                         go.GetComponentInChildren<TMP_Text>().text = $"UserName: {gc.userName.Value}  Net. ID: {gc.clientId.Value}";
                         if (gc.clientId.Value == NetworkManager.Singleton.LocalClientId)

@@ -11,8 +11,10 @@ using UnityEngine.SceneManagement;
 public class GameClient : NetworkBehaviour
 {
     [SerializeField] public NetworkVariable<ulong> clientId = new NetworkVariable<ulong>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    [SerializeField] public NetworkVariable<Color> clientColor = new NetworkVariable<Color>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-    [SerializeField] public string clientName;
+    [SerializeField] private string clientName;
+    [SerializeField] private string m_clientColor;
 
     [SerializeField] public NetworkVariable<FixedString32Bytes> userName = new NetworkVariable<FixedString32Bytes>(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
@@ -24,6 +26,14 @@ public class GameClient : NetworkBehaviour
         Debug.Log($"NetworkVariable is {userName.Value} when spawned.");
 
         userName.OnValueChanged += OnSomeValueChanged;
+        clientColor.OnValueChanged += OnColorValueChanged;
+    }
+
+    private void OnColorValueChanged(Color previousValue, Color newValue)
+    {
+        Debug.Log($"Detected NetworkVariable Change: Previous: {previousValue} | Current: {newValue}");
+        m_clientColor = newValue.ToString();
+        PlayerStatsUI.Singleton.UpdateOnlinePanel();
     }
 
     public override void OnNetworkSpawn()

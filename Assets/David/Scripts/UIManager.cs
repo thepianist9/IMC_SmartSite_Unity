@@ -19,15 +19,19 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TMP_InputField m_NetworkType;
     [SerializeField] private TMP_InputField m_PcName;
+
     [SerializeField] private GameObject m_ConfigPanel;
+    [SerializeField] private GameObject m_OfflineMenu;
+    [SerializeField] private Image m_NetworkColor;
+    [SerializeField] private GameObject m_OnlineMenu;
     [SerializeField] private GameObject m_UsernameGameObject; //
     [SerializeField] private TMP_InputField m_UsernameIPField; //
     [SerializeField] private TMP_InputField m_IPv4AddIPField; //
+    [SerializeField] private TMP_InputField m_IPv4AddIPFieldRemote; //
     [SerializeField] private TMP_Text m_SubtitleText;
     [SerializeField] private TMP_Text m_TitleText;
 
     [SerializeField] private GameObject m_ServerNetworkType;
-    [SerializeField] private GameObject m_IP;
 
 
     // Start is called before the first frame update
@@ -87,11 +91,15 @@ public class UIManager : MonoBehaviour
         if (NetworkSystemControl.Singleton.IsOnline)
         {
             m_TitleText.text = "Online Mode";
+            m_OnlineMenu.SetActive(true);
+            SetColor();
 
             //Set client ui menu
             if (ServerCheck.Instance.IsServer)
             {
                 m_SubtitleText.text = "Server";
+                m_IPv4AddIPFieldRemote.text = ServerCheck.Instance.server.ipAddress;
+
             }
             else
             {
@@ -101,14 +109,14 @@ public class UIManager : MonoBehaviour
         else
         {
             m_TitleText.text = "Offline Mode";
+            m_OfflineMenu.SetActive(true);
 
             m_SubtitleText.gameObject.SetActive(NetworkSystemControl.Singleton.IsOnline);
-            m_UsernameGameObject.SetActive(NetworkSystemControl.Singleton.IsOnline);
             m_ServerButtonGroup.gameObject.SetActive(NetworkSystemControl.Singleton.IsOnline);
         }
 
         m_ServerNetworkType.SetActive(NetworkSystemControl.Singleton.IsOnline);
-        m_IP.SetActive(NetworkSystemControl.Singleton.IsOnline);
+        m_IPv4AddIPFieldRemote.gameObject.SetActive(NetworkSystemControl.Singleton.IsOnline);
     } 
 
 
@@ -139,10 +147,10 @@ public class UIManager : MonoBehaviour
             img.color = Color.red;
         }
     }
-
+    //Username set at offline scene to be used also in online scene
     public void SetUserName()
     {
-        if (m_UsernameIPField.text != null)
+        if (m_UsernameIPField.text != "")
         {
             ServerCheck.Instance.LocalClient.SetUserName(m_UsernameIPField.text);
             Debug.Log($"[UIManager]:: Set Local client username as: {m_UsernameIPField.text}");
@@ -151,12 +159,23 @@ public class UIManager : MonoBehaviour
         Debug.Log("Username null");
 
     }
+
+    //Random color set to networked user
+    void SetColor()
+    {
+        // Random, saturated and not-too-dark color
+        Color color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        m_NetworkColor.GetComponent<Image>().color = color;
+        ServerCheck.Instance.LocalClient.clientColor = color;
+
+    }
+    
     public void SetIPAddr()
     {
-        if (m_IPv4AddIPField.text != null)
+        if (m_IPv4AddIPFieldRemote.text != null)
         {
-            ServerCheck.Instance.SetServer(m_IPv4AddIPField.text);
-            Debug.Log($"[UIManager]:: Set Server IP to Connect to: {m_IPv4AddIPField.text}");
+            ServerCheck.Instance.SetServer(m_IPv4AddIPFieldRemote.text);
+            Debug.Log($"[UIManager]:: Set Server IP to Connect to: {m_IPv4AddIPFieldRemote.text}");
         }
         else
             throw new Exception("[UI Manager]:: Need IP address of server for local client connect");

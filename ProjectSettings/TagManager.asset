@@ -10,6 +10,7 @@ TagManager:
   - ShowInMiniWorld
   - VRPlayer
   - MiniWorldCamera
+  - ARSpawnable
   layers:
   - Default
   - TransparentFX
