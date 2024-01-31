@@ -43,6 +43,7 @@ public class GameClient : NetworkBehaviour
             Debug.Log("GAMECLIENT: Start");
             clientId.Value = NetworkManager.Singleton.LocalClientId;
             userName.Value = ServerCheck.Instance.LocalClient.userName;
+            clientColor.Value = ServerCheck.Instance.LocalClient.clientColor;
             clientName = userName.Value.ToString();
         }
 
