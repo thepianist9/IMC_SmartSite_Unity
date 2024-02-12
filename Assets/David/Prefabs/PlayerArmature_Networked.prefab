@@ -1398,7 +1398,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clientId:
     m_InternalValue: 0
+  clientColor:
+    m_InternalValue: {r: 0, g: 0, b: 0, a: 0}
   clientName: 
+  m_clientColor: 
   userName:
     m_InternalValue:
       utf8LengthInBytes: 0
@@ -3145,6 +3148,10 @@ PrefabInstance:
       propertyPath: playerInput
       value: 
       objectReference: {fileID: 4416926081852918493}
+    - target: {fileID: 4522373849122737338, guid: 9b41f407d508a874bbd371f0402c57c4, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4842551279520143671, guid: 9b41f407d508a874bbd371f0402c57c4, type: 3}
       propertyPath: starterAssetsInputs
       value: 

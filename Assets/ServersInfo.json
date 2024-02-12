@@ -1,6 +1,6 @@
 	[{
 	"pcname": "Server #1",
-      	"ipaddress": "172.16.27.119",
+      	"ipaddress": "192.168.188.21",
       	"Type": "Intranet"
 	},
 	{
@@ -10,6 +10,6 @@
 	},
 	{
 	"pcname": "Server #3",
-      	"ipaddress": "172.16.28.251",
+      	"ipaddress": "172.16.27.119",
       	"Type": "Local"
 	}]
