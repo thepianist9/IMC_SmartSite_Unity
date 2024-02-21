@@ -69,8 +69,8 @@ public class UIManager : MonoBehaviour
 
             Image statusImg = _ServerButton.GetComponent<Image>();
             _ServerButton.GetComponent<Button>().onClick.AddListener(() => { ServerClicked(statusImg, server); });
-            _ServerButton.GetComponent<Server>().SetServer(server.pcName, server.ipAddress, server.Type);
-            _ServerButton.GetComponentInChildren<TMP_Text>().text = server.pcName;
+            _ServerButton.GetComponent<Server>().SetServer(server.pcname, server.ipaddress, server.Type);
+            _ServerButton.GetComponentInChildren<TMP_Text>().text = server.pcname;
         }
 
     }
@@ -80,8 +80,8 @@ public class UIManager : MonoBehaviour
         GameObject _ServerButton = Instantiate(_ServerPrefab, m_ServerButtonGroup.transform);
         Image statusImg = _ServerButton.GetComponent<Image>();
         _ServerButton.GetComponent<Button>().onClick.AddListener(() => { ServerClicked(statusImg, server); });
-        _ServerButton.GetComponent<Server>().SetServer(server.pcName, server.ipAddress, server.Type);
-        _ServerButton.GetComponentInChildren<TMP_Text>().text = server.pcName;
+        _ServerButton.GetComponent<Server>().SetServer(server.pcname, server.ipaddress, server.Type);
+        _ServerButton.GetComponentInChildren<TMP_Text>().text = server.pcname;
         //Spawn Server Button on top of menu 
         //Display server info in menu
     }
@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour
             if (ServerCheck.Instance.IsServer)
             {
                 m_SubtitleText.text = "Server";
-                m_IPv4AddIPFieldRemote.text = ServerCheck.Instance.server.ipAddress;
+                m_IPv4AddIPFieldRemote.text = ServerCheck.Instance.server.ipaddress;
 
             }
             else
@@ -131,13 +131,13 @@ public class UIManager : MonoBehaviour
 
     IEnumerator StartPing(Image img, Server server)
     {
-        Ping pinger = new Ping(server.ipAddress);
+        Ping pinger = new Ping(server.ipaddress);
         yield return new WaitForSeconds(1f);
         if (pinger.isDone)
         {
             img.color = Color.green;
             //Set IP if server responds
-            m_IPv4AddIPFieldRemote.text = server.ipAddress;
+            m_IPv4AddIPFieldRemote.text = server.ipaddress;
             
             //Set Type if server responds
             m_NetworkType.text = server.Type;

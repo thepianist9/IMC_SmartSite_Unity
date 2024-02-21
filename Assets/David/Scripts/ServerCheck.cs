@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
+using MongoDB.Driver;
+using System.Collections;
 
 
 public class ServerCheck : MonoBehaviour
@@ -15,15 +17,20 @@ public class ServerCheck : MonoBehaviour
     public string m_ServerType;
 
     public bool IsServer = false;
-    public List<Server> serverList = null;
+    public List<Server> serverList = new List<Server>();
+
 
     //GameClient Server Variables
     public Client LocalClient;
- 
     public Server server;
 
+
+    private MongoClient _mongoClient;
+    [SerializeField] private string dBConnectionString = "mongodb://192.168.188.21:27017";
+    [SerializeField] private bool dbLocal = true;
+            
     public static ServerCheck Instance;
-    [SerializeField] private string serversInfoPath = Path.Combine(Application.dataPath, "ServersInfo.json");
+
     private void Awake() 
     {
         if (Instance != null)
@@ -32,8 +39,12 @@ public class ServerCheck : MonoBehaviour
             // (***the current position of the callstack will stop here***)
             throw new Exception($"Detected more than one instance of {nameof(ServerCheck)}! " +
                 $"Do you have more than one component attached to a {nameof(GameObject)}");
+            
         }
         Instance = this;
+
+        
+
 
         m_PcName = Dns.GetHostName();
         m_ClientIP = Dns.GetHostEntry(m_PcName).AddressList[1].ToString(); //[1]: office, [3]: home
@@ -44,6 +55,32 @@ public class ServerCheck : MonoBehaviour
 
         LocalClient = new Client(m_PcName, m_ClientIP);
 
+    }
+
+    private void ConnectMongoDBServer()
+    {
+        _mongoClient = new MongoClient(dBConnectionString);
+
+    }
+
+    private void RetrieveServerList()
+    {
+        if (dbLocal)
+        {
+            var database = _mongoClient.GetDatabase("local");
+            var constructionCollection = database.GetCollection<Server>("Servers");
+            var documents = constructionCollection.Find(_ => true).ToList(); // Retrieve all documents in the collection
+            
+            foreach(var document in documents)
+            {
+                serverList.Add(document);
+            }
+        }
+        else
+        {
+            Debug.Log("Online DB not set");
+        }
+        
     }
 
     private void ReadServerInfo(Scene scene, LoadSceneMode arg1)
@@ -57,25 +94,28 @@ public class ServerCheck : MonoBehaviour
 
     private void ReadServerInfo()
     {
-        if(NetworkSystemControl.Singleton.IsOnline)
+        
+        if (NetworkSystemControl.Singleton.IsOnline)
         {
-            string jsonString = File.ReadAllText(serversInfoPath);
+            ConnectMongoDBServer();
+            RetrieveServerList();
 
-            foreach (Server server in JsonConvert.DeserializeObject<List<Server>>(jsonString))
+            foreach (var server in serverList)
             {
-                serverList.Add(server);
-                if (string.Equals(m_ClientIP, server.ipAddress, StringComparison.OrdinalIgnoreCase))
+                Debug.Log(server.ipaddress);
+
+                if (string.Equals(m_ClientIP, server.ipaddress, StringComparison.OrdinalIgnoreCase))
                 {
                     m_ServerType = server.Type;
 
                     IsServer = true;
-                    SetServer(server.ipAddress);
+                    SetServer(server.ipaddress);
                     //Start server directly on machine:
                     //NetworkSystemControl.Singleton.StartSessionOnline();
 
                     UIManager.Instance.DisplayServerMenu(server);
 
-                    
+
 
                     return;
                 }
@@ -87,7 +127,6 @@ public class ServerCheck : MonoBehaviour
             }
             else
             {
-                Debug.Log("check server json file at: " + serversInfoPath);
             }
             
             IsServer = false;

@@ -92,9 +92,9 @@ public class NetworkSystemControl : MonoBehaviour
             {
 
                 //Get IP from UI Manager and assign to UTP Transport
-                utpTransport.SetConnectionData(Sanitize(ServerCheck.Instance.server.ipAddress.ToString()), m_port);
+                utpTransport.SetConnectionData(Sanitize(ServerCheck.Instance.server.ipaddress.ToString()), m_port);
 
-                Debug.Log($"[NetworkSystemControl]:: Connecting to {ServerCheck.Instance.server.ipAddress} with port: {m_port}");
+                Debug.Log($"[NetworkSystemControl]:: Connecting to {ServerCheck.Instance.server.ipaddress} with port: {m_port}");
                 //start client
                 if (!NetworkManager.Singleton.StartClient())
                 {

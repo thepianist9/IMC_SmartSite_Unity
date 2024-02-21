@@ -407,7 +407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43fd061064abc88488a2e419f5c3e33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localUrl: C:\Fraunhofer\Users\David\Projects\imc_smartsite\Assets\David\Models\CarbonFibre.glb
+  localglTF: Duck.gltf
   remoteUrl: https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF/Duck.gltf
   LoadLocal: 1
 --- !u!4 &1890009696
