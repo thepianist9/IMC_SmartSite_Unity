@@ -112,6 +112,7 @@ public class ServerCheck : MonoBehaviour
                     SetServer(server.ipaddress);
                     //Start server directly on machine:
                     //NetworkSystemControl.Singleton.StartSessionOnline();
+                    Debug.Log("Is Server");
 
                     UIManager.Instance.DisplayServerMenu(server);
 

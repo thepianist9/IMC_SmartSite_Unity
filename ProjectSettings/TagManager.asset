@@ -11,6 +11,7 @@ TagManager:
   - VRPlayer
   - MiniWorldCamera
   - ARSpawnable
+  - gltf
   layers:
   - Default
   - TransparentFX
