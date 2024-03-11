@@ -12,6 +12,9 @@ TagManager:
   - MiniWorldCamera
   - ARSpawnable
   - gltf
+  - View
+  - UIElement
+  - NetcodeGO
   layers:
   - Default
   - TransparentFX

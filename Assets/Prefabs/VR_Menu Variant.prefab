@@ -1,0 +1,216 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7884875794209805329
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1683768164749730, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_Name
+      value: VR_Menu Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 123.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 109.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 54.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067935990587634, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114245829560094880, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114245829560094880, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114245829560094880, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114405403865206970, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IATK.VRMenuInteractor, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 114449511197595008, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114449511197595008, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114449511197595008, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114455708388858410, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114455708388858410, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114455708388858410, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114497247161255752, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114651112981998382, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114651112981998382, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114651112981998382, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114738704122880684, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IATK.VRMenuInteractor, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 114850918808872788, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114850918808872788, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114850918808872788, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114934128143794186, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IATK.VRMenuInteractor, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 224125822401399910, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224135005337200898, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224232554669926696, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224232554669926696, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224283101355353630, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224283101355353630, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224283101355353630, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224585585506719280, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224727468889473128, guid: 161281fdb9551da4283f75386fcee607,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114455043008257254, guid: 161281fdb9551da4283f75386fcee607, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 161281fdb9551da4283f75386fcee607, type: 3}

@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/David/Scenes/InitBootStrap.unity
     guid: 2472f6e48e98f1247952e37f9ed9dbf5
-  - enabled: 1
+  - enabled: 0
     path: Assets/David/Scenes/StartMenu.unity
     guid: c9d66e38175011d498324e033f874e4c
   - enabled: 0
@@ -20,16 +20,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/David/Scenes/Unity/Terminal/TerminalScene.unity
     guid: 4496a3dbb8d263043a4460bac5382ac5
-  - enabled: 1
+  - enabled: 0
     path: Assets/David/Scenes/NetworkedSession.unity
     guid: 6419a95f46d80c542a083a51891d0d1d
-  - enabled: 1
+  - enabled: 0
     path: Assets/David/Scenes/OfflineSession.unity
     guid: 290cfe52c9631aa43946eb840d1260dc
   - enabled: 0
     path: Assets/David/Scenes/NetworkedRoomSession.unity
     guid: 2bdee9b519938a4468770f7c5db1ad67
-  - enabled: 1
+  - enabled: 0
     path: Assets/StarterAssets/ThirdPersonController/Scenes/Playground.unity
     guid: e9017d5f96b9f09489b4b37e1d6eb914
   - enabled: 0
@@ -38,11 +38,20 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/David/Scenes/glTFLoaderTest.unity
     guid: 25aae314bffb381438a35716c72b0d52
+  - enabled: 0
+    path: Assets/Scenes/Project Scene.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Project Scene AR.unity
+    guid: 64185515616afbd4bbb0c3f74404e380
+  - enabled: 0
+    path: Assets/Samples/XR Interaction Toolkit/2.5.3/AR Starter Assets/ARDemoScene.unity
+    guid: da4db6c21a88243878fecfe160c1be3b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6eaa3ba33ebd11e41bc5e6168d8474fe, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 737334875c3804343b276a6a2593381f, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 043f5e5df9969a34bb544233eb2655a5, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: ad00ffda1a6a10847b84cc47a9e96d38, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: dbad009006246b74bb835fdf6e2fa6d8, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c1fc3bcb811d3c047b11d464706adfdb, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: f8e25d22fdb5a1943b1e72c432071434, type: 2}

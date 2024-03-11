@@ -1,0 +1,118 @@
+using IATK;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Linq;
+using UnityEngine;
+using XRSpatiotemopralAuthoring;
+using MongoDB.Driver;
+using Newtonsoft.Json.Linq;
+using Unity.VisualScripting;
+
+public class SpatioControlManager : MonoBehaviour
+{
+
+
+    //take the data of the current visualisation object and get all the game objects
+    //function to set higlight material of the retrieved game objects
+    // function to activate only the game objects are filtered
+    //function to create a link between data source and game object instances.
+    private GraphManager _graphManager;
+    private GraphsControlManager _graphsControlManagerInstance;
+    [SerializeField] private GameObject _constructionObject;
+    private DataSource _dataSource;
+    private float[] dict;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+        if(_graphsControlManagerInstance == null)
+        {
+            //holds graph data
+            _graphsControlManagerInstance = GraphsControlManager.Instance;
+        }
+        if (_graphManager == null)
+        {
+            //holds data
+            _graphManager = GraphManager.Instance;
+        }
+        _dataSource = _graphManager.myCSVDataSource;
+    }
+
+    public void SetData()
+    {
+        //we get the filtered attribute
+        //we get the filter min max values_
+
+        //
+        AttributeFilter attributeFilter = _graphsControlManagerInstance.visualisation.attributeFilters[0];
+
+        float min = attributeFilter.minFilter;
+        float max = attributeFilter.maxFilter;
+
+
+
+        var filteredItems = _dataSource.Select(item =>
+        {
+
+            if (item.Identifier == attributeFilter.Attribute)
+            {
+                dict = item.Data;
+            } // Assuming item is the type you're filtering and it has a property called value to filter // Change this according to your actual structure
+
+
+            // Check if the value falls within the range specified by min and max
+            return dict;
+        }).ToList();
+
+
+        var indices = dict
+                         .Select((value, index) => new { Value = value, Index = index }) // Project each value with its index
+                         .Where(item => item.Value >= min && item.Value <= max) // Filter items within the range
+                         .Select(item => item.Index);
+
+        List<String> filteredgos = new List<string>();
+
+        foreach (var index in indices)
+            {
+            Debug.Log($"Index: {index}, Value: {dict[index]}");
+            var data = _dataSource
+                         .Where(item => item.Identifier == "name")
+                         .Select(item =>
+                         {
+                             return _dataSource.getOriginalValue(item.Data[index], "name");
+                         })
+                         .ToList();
+
+            filteredgos.Add(data[0].ToString());
+        }
+
+
+        for (int i = 0; i < _constructionObject.transform.childCount; i++)
+        {
+            GameObject childGO = _constructionObject.transform.GetChild(i).gameObject;
+            if(filteredgos.Contains(childGO.name))
+                childGO.SetActive(true);
+            else
+                childGO.SetActive(false);
+
+        
+        }
+
+       
+
+
+
+
+        //get the attribute
+        //get the data from datasource with that attribut
+
+        //Debug.Log(columnData.ToString());
+        //get the values in between the filter 
+        //get their indices from original csv data source 
+        //get names of game objects
+
+    }
+}

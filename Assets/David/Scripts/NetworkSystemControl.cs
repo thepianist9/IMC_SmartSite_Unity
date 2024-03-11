@@ -13,6 +13,7 @@ public class NetworkSystemControl : MonoBehaviour
     private string m_OfflineSceneName = "OfflineSession";
     [SerializeField] private string m_NetworkedSession = "NetworkedSession";
 
+
     public bool IsOnline = false;
     public string m_ClientType;
     public string m_userName;
