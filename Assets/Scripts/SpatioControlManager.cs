@@ -27,6 +27,7 @@ public class SpatioControlManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _constructionObject = GameObject.FindGameObjectWithTag("AR_Construction");
         
         if(_graphsControlManagerInstance == null)
         {
@@ -45,7 +46,7 @@ public class SpatioControlManager : MonoBehaviour
     {
         //we get the filtered attribute
         //we get the filter min max values_
-
+        _constructionObject = GameObject.FindGameObjectWithTag("AR_Construction");
         //
         AttributeFilter attributeFilter = _graphsControlManagerInstance.visualisation.attributeFilters[0];
 

@@ -12,7 +12,8 @@ namespace XRSpatiotemopralAuthoring
         public static DataManager Instance { get { return _Instance; } }
 
         private DBNetworkingManager _dbNetworkingManager;
-        [SerializeField] private Image _image;
+        [SerializeField] private Image _UIBorder;
+        [SerializeField] private Image _UIBorderAR;
 
         public List<ConstructionBuilding> _constructionBuildingComponents { private set; get; }
 
@@ -62,7 +63,15 @@ namespace XRSpatiotemopralAuthoring
                     dataFileCSV += $"{obj.id},{obj.name},{obj.milestone},{obj.size},{obj.type},{obj.material},{obj.location},{obj.height}\n"; // Data rows
                 }
                 Debug.Log("[DataManager]: Convert to CSV successful");
-                _image.color = Color.green;
+                if (UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.Mobile)
+                {
+                    _UIBorderAR.color = Color.green;
+                }
+                else
+                {
+                    _UIBorder.color = Color.green;
+                }
+                
             }
             catch (Exception ex)
             {

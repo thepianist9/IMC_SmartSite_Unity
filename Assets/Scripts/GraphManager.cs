@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using IATK;
 using TMPro;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
@@ -14,37 +15,49 @@ namespace XRSpatiotemopralAuthoring
     public class GraphManager : MonoBehaviour
     {
         private DataManager dataInstance;
+        public Pose m_GraphPose;
 
         private static GraphManager _Instance;
         public static GraphManager Instance { get { return _Instance; } }
 
-        [SerializeField] private TMP_Dropdown graphLabelNumberDropDown;
-        [SerializeField] private GameObject graphDataLabeDropdownGOX;
-        [SerializeField] private GameObject graphDataLabeDropdownGOY;
-        [SerializeField] private GameObject graphDataLabeDropdownGOZ;
+        [SerializeField] private TMP_Dropdown graphLabelNumberDropDown_3D;
+        [SerializeField] private TMP_Dropdown graphLabelNumberDropDown_2D;
+        [SerializeField] private GameObject graphDataLabeDropdownGOX_3D;
+        [SerializeField] private GameObject graphDataLabeDropdownGOY_3D;
+        [SerializeField] private GameObject graphDataLabeDropdownGOZ_3D;
+
+        [SerializeField] private GameObject graphDataLabeDropdownGOX_2D;
+        [SerializeField] private GameObject graphDataLabeDropdownGOY_2D;
+        [SerializeField] private GameObject graphDataLabeDropdownGOZ_2D;
         [SerializeField] private Transform BoxTransform;
 
         
 
 
-        [SerializeField] private GameObject GraphPanel;
-        [SerializeField] private GameObject SidePanelParentGO;
+        [SerializeField] private GameObject SidePanelParentGO_2D;
+        [SerializeField] private GameObject SidePanelParentGO_3D;
         [SerializeField] private GameObject SidePanelGO;
+
 
 
         //Graph Control Panel
         [SerializeField] private Transform CanvasTransform;
-        [SerializeField] private GameObject GraphControlPanelPrefab;
+        [SerializeField] private GameObject GraphControlPanelPrefab_2D;
+        [SerializeField] private GameObject GraphControlPanelPrefab_3D;
         [SerializeField] private TMP_Text Header;
 
 
         [SerializeField] private GameObject visualisationObject;
 
         public Dictionary<Toggle, Visualisation> visualisations = new Dictionary<Toggle, Visualisation>();
-
-        private TMP_Dropdown graphDataLabeDropdownX;
-        private TMP_Dropdown graphDataLabeDropdownY;
-        private TMP_Dropdown graphDataLabeDropdownZ;
+        //3D
+        private TMP_Dropdown graphDataLabeDropdownX_3D;
+        private TMP_Dropdown graphDataLabeDropdownY_3D;
+        private TMP_Dropdown graphDataLabeDropdownZ_3D;
+        //AR
+        private TMP_Dropdown graphDataLabeDropdownX_2D;
+        private TMP_Dropdown graphDataLabeDropdownY_2D;
+        private TMP_Dropdown graphDataLabeDropdownZ_2D;
 
         private List<string> propertyNames = new List<string>();
 
@@ -69,17 +82,35 @@ namespace XRSpatiotemopralAuthoring
         void Start()
         {
             Debug.Log($"GraphNumber: {graphNumber}");
-            graphDataLabeDropdownX = graphDataLabeDropdownGOX.GetComponentInChildren<TMP_Dropdown>();
-            graphDataLabeDropdownY = graphDataLabeDropdownGOY.GetComponentInChildren<TMP_Dropdown>();
-            graphDataLabeDropdownZ = graphDataLabeDropdownGOZ.GetComponentInChildren<TMP_Dropdown>();
+            if(UIManager.Instance.platform == UIManager.Platform.AR)
+            {
+                //USE 2DUI
+                graphDataLabeDropdownX_2D = graphDataLabeDropdownGOX_2D.GetComponentInChildren<TMP_Dropdown>();
+                graphDataLabeDropdownY_2D = graphDataLabeDropdownGOY_2D.GetComponentInChildren<TMP_Dropdown>();
+                graphDataLabeDropdownZ_2D = graphDataLabeDropdownGOZ_2D.GetComponentInChildren<TMP_Dropdown>();
+
+                graphLabelDataDropdowns.Add(graphDataLabeDropdownX_2D);
+                graphLabelDataDropdowns.Add(graphDataLabeDropdownY_2D);
+                graphLabelDataDropdowns.Add(graphDataLabeDropdownZ_2D);
+
+
+            }
+            else if(UIManager.Instance.platform == UIManager.Platform.VR || UIManager.Instance.platform == UIManager.Platform.Editor)
+            {
+                //USE 3DUI
+                graphDataLabeDropdownX_3D = graphDataLabeDropdownGOX_3D.GetComponentInChildren<TMP_Dropdown>();
+                graphDataLabeDropdownY_3D = graphDataLabeDropdownGOY_3D.GetComponentInChildren<TMP_Dropdown>();
+                graphDataLabeDropdownZ_3D = graphDataLabeDropdownGOZ_3D.GetComponentInChildren<TMP_Dropdown>();
+
+                graphLabelDataDropdowns.Add(graphDataLabeDropdownX_3D);
+                graphLabelDataDropdowns.Add(graphDataLabeDropdownY_3D);
+                graphLabelDataDropdowns.Add(graphDataLabeDropdownZ_3D);
+
+            }
 
             dataInstance = DataManager.Instance;
+       
 
-            graphLabelDataDropdowns.Add(graphDataLabeDropdownX);
-            graphLabelDataDropdowns.Add(graphDataLabeDropdownY);
-            graphLabelDataDropdowns.Add(graphDataLabeDropdownZ);
-
-            graphLabelNumberDropDown.onValueChanged.AddListener(delegate { { SetGraphAxisNumber(); } });
         }
 
 
@@ -119,39 +150,65 @@ namespace XRSpatiotemopralAuthoring
             
         }
 
-        private void SetGraphAxisNumber()
+        public void SetGraphAxisNumber2D()
         {
             Debug.Log("set axis called");
-            switch (graphLabelNumberDropDown.options[graphLabelNumberDropDown.value].text)
+            switch (graphLabelNumberDropDown_2D.options[graphLabelNumberDropDown_2D.value].text)
             {
                 case "Single Axis":
-                    graphDataLabeDropdownGOX.SetActive(true);
-                    graphDataLabeDropdownGOY.SetActive(false);
-                    graphDataLabeDropdownGOZ.SetActive(false);
+                    graphDataLabeDropdownGOX_2D.SetActive(true);
+                    graphDataLabeDropdownGOY_2D.SetActive(false);
+                    graphDataLabeDropdownGOZ_2D.SetActive(false);
                     graphAxisNumber = 1;
                     break;
                 case "Double Axis":
-                    graphDataLabeDropdownGOX.SetActive(true);
-                    graphDataLabeDropdownGOY.SetActive(true);
-                    graphDataLabeDropdownGOZ.SetActive(false);
+                    graphDataLabeDropdownGOX_2D.SetActive(true);
+                    graphDataLabeDropdownGOY_2D.SetActive(true);
+                    graphDataLabeDropdownGOZ_2D.SetActive(false);
                     graphAxisNumber = 2;
                     break;
                 case "Triple Axis":
-                    graphDataLabeDropdownGOX.SetActive(true);
-                    graphDataLabeDropdownGOY.SetActive(true);
-                    graphDataLabeDropdownGOZ.SetActive(true);
+                    graphDataLabeDropdownGOX_2D.SetActive(true);
+                    graphDataLabeDropdownGOY_2D.SetActive(true);
+                    graphDataLabeDropdownGOZ_2D.SetActive(true);
+                    graphAxisNumber = 3;
+                    break;
+
+            }
+        }
+        public void SetGraphAxisNumber3D()
+        {
+            Debug.Log("set axis called");
+            switch (graphLabelNumberDropDown_3D.options[graphLabelNumberDropDown_3D.value].text)
+            {
+                case "Single Axis":
+                    graphDataLabeDropdownGOX_3D.SetActive(true);
+                    graphDataLabeDropdownGOY_3D.SetActive(false);
+                    graphDataLabeDropdownGOZ_3D.SetActive(false);
+                    graphAxisNumber = 1;
+                    break;
+                case "Double Axis":
+                    graphDataLabeDropdownGOX_3D.SetActive(true);
+                    graphDataLabeDropdownGOY_3D.SetActive(true);
+                    graphDataLabeDropdownGOZ_3D.SetActive(false);
+                    graphAxisNumber = 2;
+                    break;
+                case "Triple Axis":
+                    graphDataLabeDropdownGOX_3D.SetActive(true);
+                    graphDataLabeDropdownGOY_3D.SetActive(true);
+                    graphDataLabeDropdownGOZ_3D.SetActive(true);
                     graphAxisNumber = 3;
                     break;
 
             }
         }
 
-        public void SetGraph()
+        public void SetGraph2D()
         {
-            switch (graphLabelNumberDropDown.options[graphLabelNumberDropDown.value].text)
+            switch (graphLabelNumberDropDown_2D.options[graphLabelNumberDropDown_2D.value].text)
             {
                 case "Single Axis":
-                    if (graphDataLabeDropdownX.value != 0 || graphDataLabeDropdownY.value != 0 || graphDataLabeDropdownZ.value != 0)
+                    if (graphDataLabeDropdownX_2D.value != 0 || graphDataLabeDropdownY_2D.value != 0 || graphDataLabeDropdownZ_2D.value != 0)
                     {
                         //test2();
                         //create single axis graph
@@ -159,7 +216,7 @@ namespace XRSpatiotemopralAuthoring
                     }
                     break;
                 case "Double Axis":
-                    if ((graphDataLabeDropdownX.value != 0 && graphDataLabeDropdownY.value != 0) || (graphDataLabeDropdownX.value != 0 && graphDataLabeDropdownZ.value != 0) || (graphDataLabeDropdownY.value != 0 && graphDataLabeDropdownZ.value != 0))
+                    if ((graphDataLabeDropdownX_2D.value != 0 && graphDataLabeDropdownY_2D.value != 0) || (graphDataLabeDropdownX_2D.value != 0 && graphDataLabeDropdownZ_2D.value != 0) || (graphDataLabeDropdownY_2D.value != 0 && graphDataLabeDropdownZ_2D.value != 0))
                     {
                         //test2();
                         //create double axis graph
@@ -167,7 +224,41 @@ namespace XRSpatiotemopralAuthoring
                     }
                     break;
                 case "Triple Axis":
-                    if (graphDataLabeDropdownX.value != 0 && graphDataLabeDropdownY.value != 0 && graphDataLabeDropdownZ.value != 0)
+                    if (graphDataLabeDropdownX_2D.value != 0 && graphDataLabeDropdownY_2D.value != 0 && graphDataLabeDropdownZ_2D.value != 0)
+                    {
+                        //test2();
+                        //create single axis graph
+                        LoadGraph("Triple Axis");
+                    }
+                    break;
+                default:
+                    Debug.Log($"[Graph Manager]: not all graphs axis selected for the graph with axis number: {graphAxisNumber}");
+                    break;
+
+            }
+        }
+        public void SetGraph3D()
+        {
+            switch (graphLabelNumberDropDown_3D.options[graphLabelNumberDropDown_3D.value].text)
+            {
+                case "Single Axis":
+                    if (graphDataLabeDropdownX_3D.value != 0 || graphDataLabeDropdownY_3D.value != 0 || graphDataLabeDropdownZ_3D.value != 0)
+                    {
+                        //test2();
+                        //create single axis graph
+                        LoadGraph("Single Axis");
+                    }
+                    break;
+                case "Double Axis":
+                    if ((graphDataLabeDropdownX_3D.value != 0 && graphDataLabeDropdownY_3D.value != 0) || (graphDataLabeDropdownX_3D.value != 0 && graphDataLabeDropdownZ_3D.value != 0) || (graphDataLabeDropdownY_3D.value != 0 && graphDataLabeDropdownZ_3D.value != 0))
+                    {
+                        //test2();
+                        //create double axis graph
+                        LoadGraph("Double Axis");
+                    }
+                    break;
+                case "Triple Axis":
+                    if (graphDataLabeDropdownX_3D.value != 0 && graphDataLabeDropdownY_3D.value != 0 && graphDataLabeDropdownZ_3D.value != 0)
                     {
                         //test2();
                         //create single axis graph
@@ -194,52 +285,118 @@ namespace XRSpatiotemopralAuthoring
                 
 
                 CSVDataSource csv = GetComponent<CSVDataSource>();
-                GameObject go = GameObject.Instantiate(visualisationObject, BoxTransform.position + Vector3.up * 1 + Vector3.forward * (graphNumber-1), Quaternion.AngleAxis(90f, Vector3.up));
+                GameObject go = null;
+                GameObject toggleGO = null;
+               
+                //go = GameObject.Instantiate(visualisationObject, m_GraphPosition + Vector3.forward * (graphNumber - 1), Quaternion.AngleAxis(90f, Vector3.up));
+                if (UIManager.Instance.platform == UIManager.Platform.AR)
+                {
+                    go = GameObject.Instantiate(visualisationObject, m_GraphPose.position + Vector3.forward * (graphNumber - 1), m_GraphPose.rotation);
+                }
+                else if(UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.VR)
+                {
+                    go = GameObject.Instantiate(visualisationObject, BoxTransform.position + Vector3.up * 1 + Vector3.forward * (graphNumber - 1), Quaternion.AngleAxis(90f, Vector3.up));
+                }
+
                 Visualisation v = go.GetComponent<Visualisation>();
                 v.name = $"Graph: {graphNumber}";
                 v.dataSource = csv;
                 v.geometry = AbstractVisualisation.GeometryType.Points;
 
-                switch (NoOfAxis)
+                if (UIManager.Instance.platform == UIManager.Platform.AR)
                 {
-                    case "Single Axis":
-                        if (graphDataLabeDropdownX.value != 0)
-                        {
-                            //create single axis graph
-                            v.xDimension.Attribute = graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text;
-                            
+                    switch (NoOfAxis)
+                    {
+                        case "Single Axis":
+                            if (graphDataLabeDropdownX_2D.value != 0)
+                            {
+                                //create single axis graph
+                                v.xDimension.Attribute = graphDataLabeDropdownX_2D.options[graphDataLabeDropdownX_2D.value].text;
 
-                            //vb.setDataDimension(csv[graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text].Data, ViewBuilder.VIEW_DIMENSION.X);
-                        }
-                        break;
-                    case "Double Axis":
-                        if (graphDataLabeDropdownX.value != 0 && graphDataLabeDropdownY.value != 0)
-                        {
-                            //create double axis graph
-                            v.xDimension.Attribute = graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text;
-                            v.yDimension.Attribute = graphDataLabeDropdownY.options[graphDataLabeDropdownY.value].text;
-                            /* vb.setDataDimension(csv[graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text].Data, ViewBuilder.VIEW_DIMENSION.X).
-                                 setDataDimension(csv[graphDataLabeDropdownY.options[graphDataLabeDropdownY.value].text].Data, ViewBuilder.VIEW_DIMENSION.Y);*
- */
 
-                        }
-                        break;
-                    case "Triple Axis":
-                        if (graphDataLabeDropdownX.value != 0 && graphDataLabeDropdownY.value != 0 && graphDataLabeDropdownZ.value != 0)
-                        {
-                            //create Triple axis graph
-                            v.xDimension.Attribute = graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text;
-                            v.yDimension.Attribute = graphDataLabeDropdownY.options[graphDataLabeDropdownY.value].text;
-                            v.zDimension.Attribute = graphDataLabeDropdownZ.options[graphDataLabeDropdownZ.value].text;
-                            /* vb.setDataDimension(csv[graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text].Data, ViewBuilder.VIEW_DIMENSION.X).
-                                 setDataDimension(csv[graphDataLabeDropdownY.options[graphDataLabeDropdownY.value].text].Data, ViewBuilder.VIEW_DIMENSION.Y).
-                                 setDataDimension(csv[graphDataLabeDropdownZ.options[graphDataLabeDropdownZ.value].text].Data, ViewBuilder.VIEW_DIMENSION.Z);*/
-                        }
-                        break;
+                                //vb.setDataDimension(csv[graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text].Data, ViewBuilder.VIEW_DIMENSION.X);
+                            }
+                            break;
+                        case "Double Axis":
+                            if (graphDataLabeDropdownX_2D.value != 0 && graphDataLabeDropdownY_2D.value != 0)
+                            {
+                                //create double axis graph
+                                v.xDimension.Attribute = graphDataLabeDropdownX_2D.options[graphDataLabeDropdownX_2D.value].text;
+                                v.yDimension.Attribute = graphDataLabeDropdownY_2D.options[graphDataLabeDropdownY_2D.value].text;
+                                /* vb.setDataDimension(csv[graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text].Data, ViewBuilder.VIEW_DIMENSION.X).
+                                     setDataDimension(csv[graphDataLabeDropdownY.options[graphDataLabeDropdownY.value].text].Data, ViewBuilder.VIEW_DIMENSION.Y);*
+     */
 
-                    default:
-                        Debug.Log($"[Graph Manager]: Load Graph failed");
-                        break;
+                            }
+                            break;
+                        case "Triple Axis":
+                            if (graphDataLabeDropdownX_2D.value != 0 && graphDataLabeDropdownY_2D.value != 0 && graphDataLabeDropdownZ_2D.value != 0)
+                            {
+                                //create Triple axis graph
+                                v.xDimension.Attribute = graphDataLabeDropdownX_2D.options[graphDataLabeDropdownX_2D.value].text;
+                                v.yDimension.Attribute = graphDataLabeDropdownY_2D.options[graphDataLabeDropdownY_2D.value].text;
+                                v.zDimension.Attribute = graphDataLabeDropdownZ_2D.options[graphDataLabeDropdownZ_2D.value].text;
+                                /* vb.setDataDimension(csv[graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text].Data, ViewBuilder.VIEW_DIMENSION.X).
+                                     setDataDimension(csv[graphDataLabeDropdownY.options[graphDataLabeDropdownY.value].text].Data, ViewBuilder.VIEW_DIMENSION.Y).
+                                     setDataDimension(csv[graphDataLabeDropdownZ.options[graphDataLabeDropdownZ.value].text].Data, ViewBuilder.VIEW_DIMENSION.Z);*/
+                            }
+                            break;
+
+                        default:
+                            Debug.Log($"[Graph Manager]: Load Graph failed");
+                            break;
+                    }
+
+                    //set in 2D graph panel
+                    toggleGO = Instantiate(SidePanelGO, SidePanelParentGO_2D.transform);
+                }
+                else if (UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.VR)
+                {
+                    switch (NoOfAxis)
+                    {
+                        case "Single Axis":
+                            if (graphDataLabeDropdownX_3D.value != 0)
+                            {
+                                //create single axis graph
+                                v.xDimension.Attribute = graphDataLabeDropdownX_3D.options[graphDataLabeDropdownX_3D.value].text;
+
+
+                                //vb.setDataDimension(csv[graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text].Data, ViewBuilder.VIEW_DIMENSION.X);
+                            }
+                            break;
+                        case "Double Axis":
+                            if (graphDataLabeDropdownX_3D.value != 0 && graphDataLabeDropdownY_3D.value != 0)
+                            {
+                                //create double axis graph
+                                v.xDimension.Attribute = graphDataLabeDropdownX_3D.options[graphDataLabeDropdownX_3D.value].text;
+                                v.yDimension.Attribute = graphDataLabeDropdownY_3D.options[graphDataLabeDropdownY_3D.value].text;
+                                /* vb.setDataDimension(csv[graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text].Data, ViewBuilder.VIEW_DIMENSION.X).
+                                     setDataDimension(csv[graphDataLabeDropdownY.options[graphDataLabeDropdownY.value].text].Data, ViewBuilder.VIEW_DIMENSION.Y);*
+     */
+
+                            }
+                            break;
+                        case "Triple Axis":
+                            if (graphDataLabeDropdownX_3D.value != 0 && graphDataLabeDropdownY_3D.value != 0 && graphDataLabeDropdownZ_3D.value != 0)
+                            {
+                                //create Triple axis graph
+                                v.xDimension.Attribute = graphDataLabeDropdownX_3D.options[graphDataLabeDropdownX_3D.value].text;
+                                v.yDimension.Attribute = graphDataLabeDropdownY_3D.options[graphDataLabeDropdownY_3D.value].text;
+                                v.zDimension.Attribute = graphDataLabeDropdownZ_3D.options[graphDataLabeDropdownZ_3D.value].text;
+                                /* vb.setDataDimension(csv[graphDataLabeDropdownX.options[graphDataLabeDropdownX.value].text].Data, ViewBuilder.VIEW_DIMENSION.X).
+                                     setDataDimension(csv[graphDataLabeDropdownY.options[graphDataLabeDropdownY.value].text].Data, ViewBuilder.VIEW_DIMENSION.Y).
+                                     setDataDimension(csv[graphDataLabeDropdownZ.options[graphDataLabeDropdownZ.value].text].Data, ViewBuilder.VIEW_DIMENSION.Z);*/
+                            }
+                            break;
+
+                        default:
+                            Debug.Log($"[Graph Manager]: Load Graph failed");
+                            break;
+                    }
+
+                    //set in 3D graph panel
+                    toggleGO = Instantiate(SidePanelGO, SidePanelParentGO_3D.transform);
+                    
                 }
                 /*//Enumerable.Repeat(1f, dataSource[0].Data.Length).ToArray()
                 Material mt = new Material(Shader.Find("IATK/OutlineDots"));
@@ -261,21 +418,33 @@ namespace XRSpatiotemopralAuthoring
                 v.size = 0.5f;
                 //v.minSize = 0.1f;
                 //v.maxSize = 0.3f;
-                if (!GraphPanel.gameObject.activeSelf)
-                    GraphPanel.gameObject.SetActive(true);
-                GameObject toggleGO = Instantiate(SidePanelGO, SidePanelParentGO.transform);
+               
+                
+                
                 graphNumber += 1;
-                toggleGO.GetComponentInChildren<TMP_Text>().text = $"Graph: {graphNumber}";
+                if(toggleGO != null)
+                    toggleGO.GetComponentInChildren<TMP_Text>().text = $"Graph: {graphNumber}";
+
 
                 Toggle toggle = toggleGO.GetComponentInChildren<Toggle>();
                 toggle.isOn = true;
-                toggle.group = SidePanelParentGO.GetComponent<ToggleGroup>();
+
+                if (UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.VR)
+                    toggle.group = SidePanelParentGO_3D.GetComponent<ToggleGroup>();
+                    GraphControlPanelPrefab_3D.GetComponent<GraphsControlManager>().visualisation = v;
+
+
+                if (UIManager.Instance.platform == UIManager.Platform.AR)
+                    toggle.group = SidePanelParentGO_2D.GetComponent<ToggleGroup>();
+                    GraphControlPanelPrefab_2D.GetComponent<GraphsControlManager>().visualisation = v;
+
+
                 toggle.onValueChanged.AddListener(delegate { ToggleValueChanged(toggle); });
                 toggle.gameObject.name = $"Graph: {graphNumber}";
 
 
                 //instantiate and then on toggle activate the corresponding go
-                GraphControlPanelPrefab.GetComponent<GraphsControlManager>().visualisation = v;
+                
 
 
                 //pair of toggles and panels

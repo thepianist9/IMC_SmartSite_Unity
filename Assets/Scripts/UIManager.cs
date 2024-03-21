@@ -7,12 +7,25 @@ namespace XRSpatiotemopralAuthoring
 {
     public class UIManager : MonoBehaviour
     {
-        [SerializeField] private GameObject UIGameObject;
         [SerializeField] private Camera XRCamera;
+        [SerializeField] private GameObject twoDUI;
+        [SerializeField] private GameObject threeDUI;
+        [SerializeField] private GameObject threeDGraphPanel;
+        [SerializeField] private GameObject spatialThreeDPanel;
+
+        [SerializeField] private GameObject AR_CameraRig;
+        [SerializeField] private GameObject VR_CameraRig;
+
+        [SerializeField] private GameObject EnviromentObject;
+        //[SerializeField] private GameObject fpvcontroller;
+
+        private static UIManager _Instance;
+        public static UIManager Instance { get { return _Instance; } }
 
 
-        [SerializeField]
-        private enum Platform
+
+        
+        public enum Platform
         {
             Mobile,
             VR,
@@ -20,28 +33,38 @@ namespace XRSpatiotemopralAuthoring
             Desktop,
             Editor
         }
-        Platform platform;
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField] public Platform platform;
+
+        void Awake()
         {
+            if (_Instance == null)
+            {
+                _Instance = this;
+            }
             //Mobile
             if ((Application.platform == RuntimePlatform.Android) || (Application.platform == RuntimePlatform.IPhonePlayer))
             {
-                platform = Platform.Mobile;
+                platform = Platform.AR;
+                SetARMode();
+
             }
             //Editor
             else if ((Application.platform == RuntimePlatform.WindowsEditor) || (Application.platform == RuntimePlatform.OSXEditor) || (Application.platform == RuntimePlatform.LinuxEditor))
             {
                 platform = Platform.Editor;
+
+                SetVRMode();
             }
             //Standalone Desktop
             else if ((Application.platform == RuntimePlatform.WindowsPlayer) || (Application.platform == RuntimePlatform.OSXPlayer) || (Application.platform == RuntimePlatform.LinuxPlayer))
             {
                 platform = Platform.Desktop;
+                SetARMode();
             }
-
-
+            Debug.Log(platform.ToString());
         }
+
+
 
         // Update is called once per frame
         void Update()
@@ -63,6 +86,10 @@ namespace XRSpatiotemopralAuthoring
 
                 case Platform.VR:
                     //VR UI
+                    if(Input.GetKeyDown(KeyCode.M))
+                    {
+                        threeDUI.SetActive(!threeDUI.activeSelf);
+                    }
                     break;
                 case Platform.AR:
                     //AR UI
@@ -70,11 +97,21 @@ namespace XRSpatiotemopralAuthoring
 
 
                 case (Platform.Editor):
-                    if (UIGameObject != null)
+                    if (threeDUI != null)
                     {
+                        //toggle UI
                         if (Input.GetKeyDown(KeyCode.M))
                         {
-                            UIGameObject.SetActive(!UIGameObject.activeSelf);
+                            if (threeDGraphPanel.activeSelf == false && spatialThreeDPanel.activeSelf == false)
+                                spatialThreeDPanel.SetActive(true);
+                            threeDUI.SetActive(!threeDUI.activeSelf);
+                        }
+                        //swap UI
+                        if (Input.GetKeyDown(KeyCode.N))
+                        {
+                            threeDGraphPanel.SetActive(spatialThreeDPanel.activeSelf);
+                            spatialThreeDPanel.SetActive(!spatialThreeDPanel.activeSelf);
+                            
                         }
                         //RaycastUI3D();
 
@@ -83,11 +120,11 @@ namespace XRSpatiotemopralAuthoring
 
                 case Platform.Desktop:
                     //Desktop UI
-                    if (UIGameObject != null)
+                    if (threeDUI != null)
                     {
                         if (Input.GetKeyDown(KeyCode.M))
                         {
-                            UIGameObject.SetActive(!UIGameObject.activeSelf);
+                            threeDUI.SetActive(!threeDUI.activeSelf);
                         }
                         //RaycastUI3D();
 
@@ -97,6 +134,54 @@ namespace XRSpatiotemopralAuthoring
                     print("[UI Manager]: Unable to recognize Platform");
                     break;
             }
+        }
+
+        private void SetARMode()
+        {
+            //remove and 3d Objects
+            twoDUI.SetActive(true);
+            EnviromentObject.SetActive(false);
+            //fpvcontroller.SetActive(false);
+            if(AR_CameraRig.activeSelf == false)
+            {
+                AR_CameraRig.SetActive(true);
+            }
+            
+            if(VR_CameraRig.activeSelf == true)
+            {
+                VR_CameraRig.SetActive(false);
+            }
+            
+
+            //set camera for ar
+            //spawn building
+        } 
+        private void SetVRMode()
+        {
+            //remove and 3d Objects
+            threeDUI.SetActive(true);
+            EnviromentObject.SetActive(true);
+            //fpvcontroller.SetActive(true);
+            if (AR_CameraRig.activeSelf == true)
+            {
+                AR_CameraRig.SetActive(false);
+            }
+
+            if (VR_CameraRig.activeSelf == false)
+            {
+                VR_CameraRig.SetActive(true);
+            }
+            //set camera for ar
+            //spawn building
+        }
+        public void HandleDropdownBlocker()
+        {
+            GameObject blocker = GameObject.Find("Blocker");
+            if(blocker != null)
+            {
+                blocker.SetActive(false);
+            }
+            
         }
 
         /*private void RaycastUI3D()

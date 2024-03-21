@@ -24,13 +24,13 @@ EditorUserSettings:
       value: 510455070006580f0f080a20437b0e44454f1979797f77662e7e4f31b2e4616a
       flags: 0
     RecentlyUsedSceneGuid-6:
-      value: 0750000207030a095c0f547a42770c48414f1e2f2f2e23617b791e62e0e5673a
-      flags: 0
-    RecentlyUsedSceneGuid-7:
       value: 5155035452505a090c5e5d20477007444f154e282e7f74367a7c1b6bb3b1676e
       flags: 0
-    RecentlyUsedSceneGuid-8:
+    RecentlyUsedSceneGuid-7:
       value: 5505055e5000580e5b5f5a2316215b4414151a7a2f7b2067797d4d67e7b36c68
+      flags: 0
+    RecentlyUsedSceneGuid-8:
+      value: 0750000207030a095c0f547a42770c48414f1e2f2f2e23617b791e62e0e5673a
       flags: 0
     RecentlyUsedSceneGuid-9:
       value: 5a08575f5207595a0f5d59741173094444164f7d7d2a23317c7a4465bbe1646d
@@ -43,6 +43,9 @@ EditorUserSettings:
       flags: 0
     UnityEditor.ShaderGraph.InspectorWindow:
       value: 18135939215a0a5004000b0e15254b524c1119263f2d6a722016393ce1eb3d36e5d339f9a5602b2e2c07a37e0901373ae01e0008f707250d171df81a53a5485d41895ac825e0100ec20313c0d91cddccd3d0c7efcca9bd80908fecb0f9cfddf1eff4e7a1b1eae482f0fcaee1e1928b86d888ed969b938797a7cf
+      flags: 0
+    UnityRemoteDevice:
+      value: 225f4d46245b0d4902070862342649191512
       flags: 0
     glTF.saveFilePath:
       value: 200b682017541c5505010a27021f6a0313050b160829303929152d21edea313bf6f40ad1d57a727c0a12ee280d31353aff1a0619f7074a2a041af50103f61e1451f117ca16f43e0fd81c08ddf12dc3e6d3d7d6f9

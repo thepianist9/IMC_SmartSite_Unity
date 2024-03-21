@@ -15,6 +15,7 @@ TagManager:
   - View
   - UIElement
   - NetcodeGO
+  - AR_Construction
   layers:
   - Default
   - TransparentFX

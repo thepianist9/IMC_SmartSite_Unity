@@ -38,21 +38,18 @@ namespace XRSpatiotemopralAuthoring
         }
 
         // Use this for initialization
-        void Start()
+        public void Start()
         {
             DataAttributesNames = GetAttributesList();
             X_AxisDropDown.AddOptions(DataAttributesNames);
             Y_AxisDropDown.AddOptions(DataAttributesNames);
             Z_AxisDropDown.AddOptions(DataAttributesNames);
+            SizeAttributeDropDown.AddOptions(DataAttributesNames);
+            FilterAttributeDropDown.AddOptions(DataAttributesNames);
 
             X_AxisDropDown.value = DataAttributesNames.IndexOf(visualisation.xDimension.Attribute);
             Y_AxisDropDown.value = DataAttributesNames.IndexOf(visualisation.yDimension.Attribute);
             Z_AxisDropDown.value = DataAttributesNames.IndexOf(visualisation.zDimension.Attribute);
-
-            SizeAttributeDropDown.AddOptions(DataAttributesNames);
-            FilterAttributeDropDown.AddOptions(DataAttributesNames);
-
-            SizeAttributeDropDown.value = DataAttributesNames.IndexOf(visualisation.sizeDimension);
             
             if (visualisation.attributeFilters.Length > 0)
                 FilterAttributeDropDown.value = DataAttributesNames.IndexOf(visualisation.attributeFilters[0].Attribute);
