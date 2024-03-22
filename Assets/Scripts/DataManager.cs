@@ -63,11 +63,11 @@ namespace XRSpatiotemopralAuthoring
                     dataFileCSV += $"{obj.id},{obj.name},{obj.milestone},{obj.size},{obj.type},{obj.material},{obj.location},{obj.height}\n"; // Data rows
                 }
                 Debug.Log("[DataManager]: Convert to CSV successful");
-                if (UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.Mobile)
+                if (UIManager.Instance.platform == UIManager.Platform.Mobile)
                 {
                     _UIBorderAR.color = Color.green;
                 }
-                else
+                else if(UIManager.Instance.platform == UIManager.Platform.Editor)
                 {
                     _UIBorder.color = Color.green;
                 }

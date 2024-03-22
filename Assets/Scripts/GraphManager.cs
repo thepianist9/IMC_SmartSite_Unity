@@ -8,7 +8,6 @@ using TMPro;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace XRSpatiotemopralAuthoring
 {
@@ -25,6 +24,9 @@ namespace XRSpatiotemopralAuthoring
         [SerializeField] private GameObject graphDataLabeDropdownGOX_3D;
         [SerializeField] private GameObject graphDataLabeDropdownGOY_3D;
         [SerializeField] private GameObject graphDataLabeDropdownGOZ_3D;
+        [SerializeField] private GameObject dataStatusOutline_3D;
+        [SerializeField] private GameObject dataStatusOutline_2D;
+
 
         [SerializeField] private GameObject graphDataLabeDropdownGOX_2D;
         [SerializeField] private GameObject graphDataLabeDropdownGOY_2D;
@@ -146,6 +148,14 @@ namespace XRSpatiotemopralAuthoring
 
                 isDataReady = true;
                 Debug.Log("[GraphManager]: Data source set for visualization");
+                if(UIManager.Instance.platform == UIManager.Platform.Editor)
+                {
+                    dataStatusOutline_3D.GetComponent<Image>().color = Color.cyan;
+                }
+                if (UIManager.Instance.platform == UIManager.Platform.AR)
+                {
+                    dataStatusOutline_2D.GetComponent<Image>().color = Color.cyan;
+                }
             }
             
         }
@@ -295,7 +305,7 @@ namespace XRSpatiotemopralAuthoring
                 }
                 else if(UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.VR)
                 {
-                    go = GameObject.Instantiate(visualisationObject, BoxTransform.position + Vector3.up * 1 + Vector3.forward * (graphNumber - 1), Quaternion.AngleAxis(90f, Vector3.up));
+                    go = GameObject.Instantiate(visualisationObject, BoxTransform.position + Vector3.up * 1 + Vector3.forward * (graphNumber - 1), BoxTransform.rotation);
                 }
 
                 Visualisation v = go.GetComponent<Visualisation>();
