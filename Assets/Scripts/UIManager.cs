@@ -12,6 +12,8 @@ namespace XRSpatiotemopralAuthoring
         [SerializeField] private GameObject threeDUI;
         [SerializeField] private GameObject threeDGraphPanel;
         [SerializeField] private GameObject spatialThreeDPanel;
+        [SerializeField] private GameObject timelinePanel;
+
 
         [SerializeField] private GameObject AR_CameraRig;
         [SerializeField] private GameObject VR_CameraRig;
@@ -173,6 +175,11 @@ namespace XRSpatiotemopralAuthoring
             }
             //set camera for ar
             //spawn building
+        }
+
+        public void ToggleTimeline_3D()
+        {
+            timelinePanel.SetActive(!timelinePanel.activeSelf);
         }
         public void HandleDropdownBlocker()
         {

@@ -28,7 +28,7 @@ namespace XRSpatiotemopralAuthoring
 
 
         //holds the string names of the data attributes
-        private List<string> DataAttributesNames;
+        public List<string> DataAttributesNames;
         private void Awake()
         {
             if (_Instance == null)

@@ -12,6 +12,9 @@ using Unity.VisualScripting;
 
 public class SpatioControlManager : MonoBehaviour
 {
+    private static SpatioControlManager _Instance;
+    public static SpatioControlManager Instance { get { return _Instance; } }
+
 
 
     //take the data of the current visualisation object and get all the game objects
@@ -23,6 +26,14 @@ public class SpatioControlManager : MonoBehaviour
     [SerializeField] private GameObject _constructionObject;
     private DataSource _dataSource;
     private float[] dict;
+
+    private void Awake()
+    {
+        if (_Instance == null)
+        {
+            _Instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()

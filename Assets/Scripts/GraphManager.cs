@@ -60,6 +60,7 @@ namespace XRSpatiotemopralAuthoring
         private TMP_Dropdown graphDataLabeDropdownX_2D;
         private TMP_Dropdown graphDataLabeDropdownY_2D;
         private TMP_Dropdown graphDataLabeDropdownZ_2D;
+        internal GraphsControlManager currentGraphControlManager;
 
         private List<string> propertyNames = new List<string>();
 
@@ -440,14 +441,22 @@ namespace XRSpatiotemopralAuthoring
                 toggle.isOn = true;
 
                 if (UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.VR)
+                {
                     toggle.group = SidePanelParentGO_3D.GetComponent<ToggleGroup>();
-                    GraphControlPanelPrefab_3D.GetComponent<GraphsControlManager>().visualisation = v;
+                    currentGraphControlManager = GraphControlPanelPrefab_3D.GetComponent<GraphsControlManager>();
+                    currentGraphControlManager.visualisation = v;
+           
+                }  
+                
 
 
                 if (UIManager.Instance.platform == UIManager.Platform.AR)
+                {
                     toggle.group = SidePanelParentGO_2D.GetComponent<ToggleGroup>();
-                    GraphControlPanelPrefab_2D.GetComponent<GraphsControlManager>().visualisation = v;
-
+                    currentGraphControlManager = GraphControlPanelPrefab_2D.GetComponent<GraphsControlManager>();
+                    currentGraphControlManager.visualisation = v;
+                }
+                    
 
                 toggle.onValueChanged.AddListener(delegate { ToggleValueChanged(toggle); });
                 toggle.gameObject.name = $"Graph: {graphNumber}";
