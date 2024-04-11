@@ -103,17 +103,26 @@ public class ServerConfig:NetworkBehaviour
     {
         //Display updated client list
         PlayerStatsUI.Singleton.UpdateOnlinePanel();
-        
+
     }
 
 
 
-        internal void SetServer(string pcName, string ipAddress, string type)
+    internal void SetServer(string pcName, string ipAddress, string type)
     {
         this.pcName.Value = pcName;
         this.type.Value = type;
-        this.ipAddress.Value = ipAddress;       
+        this.ipAddress.Value = ipAddress;
+    }
+    public override void OnNetworkDespawn()
+    {
+        if(IsServer)
+        {
+            connectedClients.Dispose();
+        }
     }
 
-  
+
+
+
 }

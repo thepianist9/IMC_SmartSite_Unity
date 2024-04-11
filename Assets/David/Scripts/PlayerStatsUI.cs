@@ -184,7 +184,8 @@ public class PlayerStatsUI : NetworkBehaviour
     public void SetOnlineMode()
     {
         NetworkSystemControl.Singleton.IsOnline = true;
-        SceneTransitionHandler.sceneTransitionHandler.ExitAndLoadStartMenu();
+        ServerCheck.Instance.ReadServerDB();
+        //SceneTransitionHandler.sceneTransitionHandler.ExitAndLoadStartMenu();
     }
 
 }

@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject m_UsernameGameObject; //
     [SerializeField] private TMP_InputField m_UsernameIPField; //
     [SerializeField] private TMP_InputField m_IPv4AddIPField; //
+    [SerializeField] private GameObject offlineOverviewPanel;
     [SerializeField] private TMP_InputField m_IPv4AddIPFieldRemote; //
     [SerializeField] private TMP_Text m_SubtitleText;
     [SerializeField] private TMP_Text m_TitleText;
@@ -48,8 +49,12 @@ public class UIManager : MonoBehaviour
     }
     private void Start()
     {
+        if(m_PcName != null)
+        {
+            m_PcName.text = ServerCheck.Instance.m_PcName;
+        }
 
-        m_PcName.text = ServerCheck.Instance.m_PcName;
+        
         m_IPv4AddIPField.text = ServerCheck.Instance.m_ClientIP;
 
         //Switch UI based on whether client is offline or online
@@ -92,7 +97,6 @@ public class UIManager : MonoBehaviour
         {
             m_TitleText.text = "Online Mode";
             m_OnlineMenu.SetActive(true);
-            SetColor();
 
             //Set client ui menu
             if (ServerCheck.Instance.IsServer)
@@ -180,6 +184,11 @@ public class UIManager : MonoBehaviour
         else
             throw new Exception("[UI Manager]:: Need IP address of server for local client connect");
 
+    }
+
+    public void ToggleOfflineOverviewPanel()
+    {
+        offlineOverviewPanel.SetActive(!offlineOverviewPanel.activeSelf);
     }
 
 

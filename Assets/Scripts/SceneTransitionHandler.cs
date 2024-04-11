@@ -113,6 +113,19 @@ public class SceneTransitionHandler : NetworkBehaviour
             SceneManager.LoadSceneAsync(scenename);
         }
     }
+    public void AddScene(string scenename)
+    {
+        if (NetworkManager.Singleton.IsListening)
+        {
+            m_numberOfClientLoaded = 0;
+            NetworkManager.Singleton.SceneManager.LoadScene(scenename, LoadSceneMode.Additive);
+            
+        }
+        else
+        {
+            SceneManager.LoadSceneAsync(scenename);
+        }
+    }
 
     private void OnLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
     {

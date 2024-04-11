@@ -14,6 +14,7 @@ public class NetworkSystemControl : MonoBehaviour
     [SerializeField] private string m_NetworkedSession = "NetworkedSession";
 
 
+
     public bool IsOnline = false;
     public string m_ClientType;
     public string m_userName;
@@ -80,7 +81,9 @@ public class NetworkSystemControl : MonoBehaviour
                 if (NetworkManager.Singleton.StartHost())
                 {
                     SceneTransitionHandler.sceneTransitionHandler.RegisterCallbacks();
-                    SceneTransitionHandler.sceneTransitionHandler.SwitchScene(m_NetworkedSession);
+                    //Remove local tpp
+                    GameObject.Find("PlayerArmature_Offline").SetActive(false);
+                    SceneTransitionHandler.sceneTransitionHandler.AddScene(m_NetworkedSession);
                     Debug.Log($"Host started at: {m_clientIP}");
                 }
                 else

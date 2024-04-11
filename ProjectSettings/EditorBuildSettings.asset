@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Project Scene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/David/Scenes/InitBootStrap.unity
+    guid: 2472f6e48e98f1247952e37f9ed9dbf5
+  - enabled: 1
+    path: Assets/David/Scenes/StartMenu.unity
+    guid: c9d66e38175011d498324e033f874e4c
+  - enabled: 1
+    path: Assets/David/Scenes/OfflineSession.unity
+    guid: 290cfe52c9631aa43946eb840d1260dc
+  - enabled: 1
+    path: Assets/David/Scenes/NetworkedSession.unity
+    guid: 6419a95f46d80c542a083a51891d0d1d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6eaa3ba33ebd11e41bc5e6168d8474fe, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 737334875c3804343b276a6a2593381f, type: 2}

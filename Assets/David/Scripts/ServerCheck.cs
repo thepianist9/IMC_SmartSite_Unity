@@ -47,14 +47,18 @@ public class ServerCheck : MonoBehaviour
 
 
         m_PcName = Dns.GetHostName();
-        m_ClientIP = Dns.GetHostEntry(m_PcName).AddressList[1].ToString(); //[1]: office, [3]: home
-
-
-
-        SceneManager.sceneLoaded += ReadServerInfo;
-
+        m_ClientIP = Dns.GetHostEntry(m_PcName).AddressList[3].ToString(); //[1]: office, [3]: home [6]:VR PC
         LocalClient = new Client(m_PcName, m_ClientIP);
 
+
+       
+
+        
+    }
+
+    private void Start()
+    {
+        ReadServerDB();
     }
 
     private void ConnectMongoDBServer()
@@ -88,11 +92,11 @@ public class ServerCheck : MonoBehaviour
         Debug.Log($"[Scene {scene.name}]: LOADED");
         if(string.Equals(scene.name, "StartMenu"))
         {
-            ReadServerInfo();
+            ReadServerDB();
         }
     }
 
-    private void ReadServerInfo()
+    public void ReadServerDB()
     {
         
         if (NetworkSystemControl.Singleton.IsOnline)

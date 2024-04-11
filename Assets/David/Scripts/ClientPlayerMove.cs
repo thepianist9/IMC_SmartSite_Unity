@@ -85,7 +85,7 @@ public class ClientPlayerMove : NetworkBehaviour
     public void SetCamera()
     {
         Debug.Log("Function SetCamera Called...");
-        if (IsLocalPlayer && SceneManager.GetActiveScene().name == "NetworkedSession")
+        if (IsLocalPlayer && SceneManager.GetActiveScene().name == "OfflineSession")
         {
             // see the note inside ServerPlayerMove why this step is also necessary for synchronizing initial player
             // position on owning clients

@@ -32,8 +32,14 @@ public class AuthoringUIPanel : MonoBehaviour
         // Check if the index is valid and the corresponding GameObject exists
         if (index >= 0 && index < correspondingGameObjects.Count && correspondingGameObjects[index] != null)
         {
+            if (correspondingGameObjects[index].name == "NetworkingToggle_Object")
+            {
+                PlayerStatsUIOffline.Singleton.SetOnlineMode();
+                UIManager.Instance.SwitchUI();
+            }
             // Set the corresponding GameObject active or inactive based on the toggle state
             correspondingGameObjects[index].SetActive(toggle.isOn);
+           
         }
         if(toggle.isOn)
         {
