@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3918932411040705040}
-  - component: {fileID: 348593658341370015}
   - component: {fileID: 7182541845167450085}
   - component: {fileID: 6452120975221990570}
   m_Layer: 0
@@ -33,22 +32,8 @@ Transform:
   m_Children:
   - {fileID: 8128418031622842910}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &348593658341370015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 613674073361326426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd87d17dfef7e364cb00dbf0915c78d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PrefabToSpawn: {fileID: 8321201880322001125, guid: a6b33b41508134c09957e076f4d53415, type: 3}
-  DestroyWithSpawner: 0
 --- !u!114 &7182541845167450085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
+  GlobalObjectIdHash: 724886031
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -81,10 +66,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c47e1f60397e6468aef97aa72ddd3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TotalNetworkGOs: 0
   _ButtonGroup: {fileID: 2939240235250310662}
   Model: {fileID: 8321201880322001125, guid: a6b33b41508134c09957e076f4d53415, type: 3}
   _SpawnModelBtn: {fileID: 715467698925635610}
   _SpawnCubeBtn: {fileID: 38576407746573965}
+  _ParentEnvironment: {fileID: 0}
+  spawnYOffset: 0
+  spawnZOffset: 0
+  NetworkObjectsTMP: {fileID: 0}
 --- !u!1 &1811681226942947677
 GameObject:
   m_ObjectHideFlags: 0

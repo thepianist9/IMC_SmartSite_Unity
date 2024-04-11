@@ -11,13 +11,13 @@ public class PlayerNetworkSpawner : NetworkBehaviour
 
     public void Awake()
     {
-        if (NetworkManager.Singleton.IsClient)
+        if (IsLocalPlayer)
         {
             SetSpawnedNetworkObject();
         }
         else
         {
-            Destroy(gameObject);
+            return;
         }
     }
 

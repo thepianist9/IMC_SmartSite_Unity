@@ -51,6 +51,7 @@ public class NetworkSystemControl : MonoBehaviour
     {
         if(IsOnline) 
         {
+            UIManager.Instance.SetIPAddr();
             StartSessionOnline();
         }
         else
