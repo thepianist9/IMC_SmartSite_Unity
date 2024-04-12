@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
 using UnityEngine.UI;
 
@@ -13,12 +14,14 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [SerializeField] private GameObject _ServerPrefab;
+    [SerializeField] private GameObject AuthoringUI;
 
     [SerializeField] private GameObject m_ServerButtonGroup;
     [SerializeField] private GameObject m_ServerButtonPrefab;
 
     [SerializeField] private TMP_InputField m_NetworkType;
     [SerializeField] private TMP_InputField m_PcName;
+    [SerializeField] private GameObject ToggleMenuPanel;
 
     [SerializeField] private GameObject m_ConfigPanel;
     [SerializeField] private GameObject m_OfflineMenu;
@@ -33,6 +36,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text m_TitleText;
 
     [SerializeField] private GameObject m_ServerNetworkType;
+    private GameObject OnlineCanvas;
 
 
     // Start is called before the first frame update
@@ -82,6 +86,8 @@ public class UIManager : MonoBehaviour
 
     public void DisplayServerMenu(Server server)
     {
+        if(m_ServerButtonGroup.transform.childCount.Equals(0))
+        { 
         GameObject _ServerButton = Instantiate(_ServerPrefab, m_ServerButtonGroup.transform);
         Image statusImg = _ServerButton.GetComponent<Image>();
         _ServerButton.GetComponent<Button>().onClick.AddListener(() => { ServerClicked(statusImg, server); });
@@ -89,6 +95,7 @@ public class UIManager : MonoBehaviour
         _ServerButton.GetComponentInChildren<TMP_Text>().text = server.pcname;
         //Spawn Server Button on top of menu 
         //Display server info in menu
+        }
     }
 
     public void SwitchUI()
@@ -171,6 +178,44 @@ public class UIManager : MonoBehaviour
         Color color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         m_NetworkColor.GetComponent<Image>().color = color;
         ServerCheck.Instance.LocalClient.clientColor = color;
+
+    }
+
+    public void DeactivateOfflinePanel()
+    {
+        //if scene is offline show offline panel if online show online panel
+        if(SceneManager.GetActiveScene().name.Equals("Online"))
+        {
+            offlineOverviewPanel.SetActive(false);
+        }
+        //if panel active deactivate the overview panel 
+    }
+
+    public void TogglePanel()
+    {
+        if(SceneManager.GetActiveScene().name.Equals("NetworkedSession"))
+        {
+            if(OnlineCanvas == null)
+            {
+                OnlineCanvas = GameObject.Find("OnlineCanvas");
+            }
+            else
+            {
+                OnlineCanvas.SetActive(!OnlineCanvas.activeSelf);
+                //toggle menu
+                ToggleMenuPanel.SetActive(!ToggleMenuPanel.activeSelf);
+                AuthoringUI.SetActive(!AuthoringUI.activeSelf);
+            }
+           
+        }
+        else if (SceneManager.GetActiveScene().name.Equals("OfflineSession"))
+        {
+            offlineOverviewPanel.SetActive(!offlineOverviewPanel.activeSelf);
+            //toggle menu
+            ToggleMenuPanel.SetActive(!ToggleMenuPanel.activeSelf);
+            AuthoringUI.SetActive(!AuthoringUI.activeSelf);
+        }
+       
 
     }
     

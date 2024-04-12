@@ -1105,12 +1105,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1935723868}
     - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -1120,12 +1128,28 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1175347078318628936, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1741,12 +1765,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1935723868}
+    - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 6867449935896547195}
     - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -1756,19 +1792,63 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743097452707502495, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758333289885330866, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758333289885330866, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758333289885330866, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1935723868}
+    - target: {fileID: 4758333289885330866, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758333289885330866, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758333289885330866, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4758333289885330866, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4824060757777821197, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
@@ -1862,6 +1942,34 @@ PrefabInstance:
     - target: {fileID: 5994776715170892581, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetAuthoringContent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022422120331793147, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022422120331793147, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022422120331793147, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1935723868}
+    - target: {fileID: 6022422120331793147, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022422120331793147, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022422120331793147, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022422120331793147, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6098182422847793638, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2402,9 +2510,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380837240937568010, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 584974022}
-    - targetCorrespondingSourceObject: {fileID: 7110870730378710768, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 584974020}
   m_SourcePrefab: {fileID: 100100000, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
 --- !u!224 &584974017 stripped
 RectTransform:
@@ -2421,26 +2526,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7110870730378710768, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
   m_PrefabInstance: {fileID: 584974016}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &584974020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 584974019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1981924337
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &584974021 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2380837240937568010, guid: 2c63899f33a0bf546bab4f1bbb21ae0c, type: 3}
@@ -3978,6 +4063,10 @@ PrefabInstance:
       value: UIManager
       objectReference: {fileID: 0}
     - target: {fileID: 6669757386482490580, guid: 14eb96f5cdf765045bdbd6e5cac5c4f0, type: 3}
+      propertyPath: AuthoringUI
+      value: 
+      objectReference: {fileID: 584974019}
+    - target: {fileID: 6669757386482490580, guid: 14eb96f5cdf765045bdbd6e5cac5c4f0, type: 3}
       propertyPath: m_TitleText
       value: 
       objectReference: {fileID: 1824697452}
@@ -4001,6 +4090,10 @@ PrefabInstance:
       propertyPath: m_SubtitleText
       value: 
       objectReference: {fileID: 1481917345}
+    - target: {fileID: 6669757386482490580, guid: 14eb96f5cdf765045bdbd6e5cac5c4f0, type: 3}
+      propertyPath: ToggleMenuPanel
+      value: 
+      objectReference: {fileID: 584974018}
     - target: {fileID: 6669757386482490580, guid: 14eb96f5cdf765045bdbd6e5cac5c4f0, type: 3}
       propertyPath: m_IPv4AddIPField
       value: 
@@ -8606,6 +8699,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1935723868}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: DeactivateOfflinePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1935723868}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: StartSession
         m_Mode: 1
         m_Arguments:
@@ -8616,31 +8721,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 584974019}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 584974018}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Server
-          m_BoolArgument: 1
-        m_CallState: 1
-      - m_Target: {fileID: 6867449935896547195}
+      - m_Target: {fileID: 4416926081844963604}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -16294,13 +16375,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerStatsUI, Assembly-CSharp
-        m_MethodName: ToggleBtn
-        m_Mode: 2
+      - m_Target: {fileID: 1935723868}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: TogglePanel
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 7745988552270528802}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
