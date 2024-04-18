@@ -16,6 +16,7 @@ TagManager:
   - UIElement
   - NetcodeGO
   - AR_Construction
+  - OnlineUI
   layers:
   - Default
   - TransparentFX

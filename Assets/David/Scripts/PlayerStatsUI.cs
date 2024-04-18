@@ -61,21 +61,16 @@ public class PlayerStatsUI : NetworkBehaviour
             Client LocalClient = ServerCheck.Instance.LocalClient;
             DisplayOfflinePanel();
         }
-        else if(scene.name == "NetworkedSession")
-        {
-            
-            _toggle.onValueChanged.AddListener(ToggleNetworkChat);
-            
-        }
+       
     }
 
-
+/*
     private void ToggleNetworkChat(bool isOn)
     {
         tpc = GameObject.Find("Player_" + NetworkManager.Singleton.LocalClientId).GetComponent<ThirdPersonController>();
         ChatGO.SetActive(isOn);
         tpc.enabled = !isOn;
-    }
+    }*/
 
 
     private void DisplayOfflinePanel( )
@@ -186,6 +181,11 @@ public class PlayerStatsUI : NetworkBehaviour
         NetworkSystemControl.Singleton.IsOnline = true;
         ServerCheck.Instance.ReadServerDB();
         //SceneTransitionHandler.sceneTransitionHandler.ExitAndLoadStartMenu();
+    }
+
+    public void ToggleGameObject(GameObject go)
+    {
+        go.SetActive(!go.activeSelf);
     }
 
 }

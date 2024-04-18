@@ -1,3 +1,4 @@
+using MongoDB.Bson.Serialization.Serializers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,11 +59,28 @@ public class UIManager : MonoBehaviour
             m_PcName.text = ServerCheck.Instance.m_PcName;
         }
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
         
         m_IPv4AddIPField.text = ServerCheck.Instance.m_ClientIP;
 
         //Switch UI based on whether client is offline or online
         SwitchUI();
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        if(arg0.name == "NetworkedSession")
+        {
+            Debug.Log("Networked Session Loaded");
+            //setting network scene as active scene
+            SceneManager.SetActiveScene(arg0);
+            offlineOverviewPanel.SetActive(false);
+            TogglePanel();
+        }
+        else
+        {
+            Debug.Log("Notloaded");
+        }
     }
 
     public void DisplayClientMenu(List<Server> serverList)
@@ -181,23 +199,21 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void DeactivateOfflinePanel()
-    {
-        //if scene is offline show offline panel if online show online panel
-        if(SceneManager.GetActiveScene().name.Equals("Online"))
-        {
-            offlineOverviewPanel.SetActive(false);
-        }
-        //if panel active deactivate the overview panel 
-    }
-
     public void TogglePanel()
     {
-        if(SceneManager.GetActiveScene().name.Equals("NetworkedSession"))
+        
+
+        if (SceneManager.GetActiveScene().name == "NetworkedSession")
         {
+            Debug.Log("Scene Loaded");
             if(OnlineCanvas == null)
             {
-                OnlineCanvas = GameObject.Find("OnlineCanvas");
+                OnlineCanvas = GameObject.FindGameObjectWithTag("OnlineUI");
+                OnlineCanvas.SetActive(!OnlineCanvas.activeSelf);
+                //toggle menu
+                ToggleMenuPanel.SetActive(!ToggleMenuPanel.activeSelf);
+                AuthoringUI.SetActive(!AuthoringUI.activeSelf);
+
             }
             else
             {
@@ -208,8 +224,9 @@ public class UIManager : MonoBehaviour
             }
            
         }
-        else if (SceneManager.GetActiveScene().name.Equals("OfflineSession"))
+        else
         {
+            Debug.Log("Scene not Loaded");
             offlineOverviewPanel.SetActive(!offlineOverviewPanel.activeSelf);
             //toggle menu
             ToggleMenuPanel.SetActive(!ToggleMenuPanel.activeSelf);
