@@ -76,7 +76,7 @@ public class NetworkSystemControl : MonoBehaviour
             if (ServerCheck.Instance.IsServer)
             {
                 //set network manager server IP
-                utpTransport.SetConnectionData(Sanitize(ServerCheck.Instance.server.ToString()), m_port, "0.0.0.0");
+                utpTransport.SetConnectionData(Sanitize(ServerCheck.Instance.server.ipaddress.ToString()), m_port, "0.0.0.0");
                 Debug.Log($"Server started with IP Address: {utpTransport.ConnectionData.Address}, {utpTransport.ConnectionData.ToString()}, listening on: 0.0.0.0");
 
                 if (NetworkManager.Singleton.StartHost())
@@ -104,6 +104,11 @@ public class NetworkSystemControl : MonoBehaviour
                 if (!NetworkManager.Singleton.StartClient())
                 {
                     Debug.LogError("Failed to start client.");
+                }
+                else
+                {
+                    GameObject.Find("PlayerArmature_Offline").SetActive(false);
+                    Debug.Log($"Client started at: {m_clientIP}");
                 }
             }
         }

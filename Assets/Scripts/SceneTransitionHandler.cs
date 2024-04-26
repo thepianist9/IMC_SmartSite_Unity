@@ -123,7 +123,7 @@ public class SceneTransitionHandler : NetworkBehaviour
         }
         else
         {
-            SceneManager.LoadSceneAsync(scenename);
+            SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
         }
     }
 

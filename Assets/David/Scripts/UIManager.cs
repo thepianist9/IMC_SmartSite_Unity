@@ -73,8 +73,8 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Networked Session Loaded");
             //setting network scene as active scene
-            SceneManager.SetActiveScene(arg0);
-            offlineOverviewPanel.SetActive(false);
+            //SceneManager.SetActiveScene(arg0);
+            
             TogglePanel();
         }
         else
@@ -209,7 +209,8 @@ public class UIManager : MonoBehaviour
             if(OnlineCanvas == null)
             {
                 OnlineCanvas = GameObject.FindGameObjectWithTag("OnlineUI");
-                OnlineCanvas.SetActive(!OnlineCanvas.activeSelf);
+                if(OnlineCanvas)
+                    OnlineCanvas.SetActive(!OnlineCanvas.activeSelf);
                 //toggle menu
                 ToggleMenuPanel.SetActive(!ToggleMenuPanel.activeSelf);
                 AuthoringUI.SetActive(!AuthoringUI.activeSelf);
@@ -257,6 +258,7 @@ public class UIManager : MonoBehaviour
 
     public void StartSession()
     {
+        
         NetworkSystemControl.Singleton.StartGame();
     }
 

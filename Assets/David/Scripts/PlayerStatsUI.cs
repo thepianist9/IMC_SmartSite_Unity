@@ -22,6 +22,11 @@ public class PlayerStatsUI : NetworkBehaviour
     [SerializeField] Toggle _toggle;
     [SerializeField] TMP_Text _PlayerPanel;
 
+    [SerializeField] TMP_InputField ServerIP;
+    [SerializeField] TMP_InputField ServerType;
+    [SerializeField] TMP_InputField ServerName;
+    [SerializeField] TMP_InputField ServerTime;
+
     [SerializeField] GameObject m_BtnGroup;
     [SerializeField] ServerConfig m_ServerConfig;
     private ThirdPersonController tpc;
@@ -43,6 +48,11 @@ public class PlayerStatsUI : NetworkBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
 
+    }
+    void Start()
+    {
+
+        SetServerUI();
     }
 
 
@@ -186,6 +196,13 @@ public class PlayerStatsUI : NetworkBehaviour
     public void ToggleGameObject(GameObject go)
     {
         go.SetActive(!go.activeSelf);
+    }
+    public void SetServerUI()
+    {
+        ServerIP.text = ServerCheck.Instance.server.ipaddress;
+        ServerType.text = ServerCheck.Instance.server.Type;
+        ServerName.text = ServerCheck.Instance.server.pcname;
+        ServerTime.text = ServerCheck.Instance.server.LastConnected;
     }
 
 }

@@ -113,7 +113,7 @@ public class ServerCheck : MonoBehaviour
                     m_ServerType = server.Type;
 
                     IsServer = true;
-                    SetServer(server.ipaddress);
+                    SetServer(server.ipaddress, server.pcname, server.Type);
                     //Start server directly on machine:
                     //NetworkSystemControl.Singleton.StartSessionOnline();
                     Debug.Log("Is Server");
@@ -146,9 +146,24 @@ public class ServerCheck : MonoBehaviour
 
     }
 
-    public void SetServer(string IP)
+    public void SetServer(string IP, string pcName, string type)
     {
         if(server == null)
+        {
+            server = new Server();
+            server.SetServer(pcName, IP, type);
+        }
+
+        if (!IsServer)
+        {
+            server.SetServer(pcName, IP, type);
+            Debug.Log("Remote Server Sett!");
+        }
+
+    }
+    public void SetServer(string IP)
+    {
+        if (server == null)
         {
             server = new Server();
             server.SetServerIP(IP);

@@ -357,6 +357,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4416926081852918481, guid: 5a79b0311818e49489065c1777b75d6b, type: 3}
     - target: {fileID: 2577463361084716463, guid: a33721e9ba3981444b972ae70c494d73, type: 3}
+      propertyPath: NetworkConfig.ForceSamePrefabs
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2577463361084716463, guid: a33721e9ba3981444b972ae70c494d73, type: 3}
       propertyPath: NetworkConfig.OldPrefabList.Array.size
       value: 0
       objectReference: {fileID: 0}
