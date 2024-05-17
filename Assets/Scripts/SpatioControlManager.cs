@@ -7,13 +7,14 @@ using System.Linq;
 using UnityEngine;
 using XRSpatiotemopralAuthoring;
 using MongoDB.Driver;
-using Newtonsoft.Json.Linq;
-using Unity.VisualScripting;
+using UnityEditor;
+using TMPro;
 
 public class SpatioControlManager : MonoBehaviour
 {
     private static SpatioControlManager _Instance;
     public static SpatioControlManager Instance { get { return _Instance; } }
+    [SerializeField] private TMP_Text _DescriptionPanelText;
 
 
 
@@ -39,8 +40,8 @@ public class SpatioControlManager : MonoBehaviour
     void Start()
     {
         _constructionObject = GameObject.FindGameObjectWithTag("AR_Construction");
-        
-        if(_graphsControlManagerInstance == null)
+
+        if (_graphsControlManagerInstance == null)
         {
             //holds graph data
             _graphsControlManagerInstance = GraphsControlManager.Instance;
@@ -81,22 +82,22 @@ public class SpatioControlManager : MonoBehaviour
 
 
         var indices = dict
-                         .Select((value, index) => new { Value = value, Index = index }) // Project each value with its index
-                         .Where(item => item.Value >= min && item.Value <= max) // Filter items within the range
-                         .Select(item => item.Index);
+                            .Select((value, index) => new { Value = value, Index = index }) // Project each value with its index
+                            .Where(item => item.Value >= min && item.Value <= max) // Filter items within the range
+                            .Select(item => item.Index);
 
         List<String> filteredgos = new List<string>();
 
         foreach (var index in indices)
-            {
+        {
             Debug.Log($"Index: {index}, Value: {dict[index]}");
             var data = _dataSource
-                         .Where(item => item.Identifier == "name")
-                         .Select(item =>
-                         {
-                             return _dataSource.getOriginalValue(item.Data[index], "name");
-                         })
-                         .ToList();
+                            .Where(item => item.Identifier == "name")
+                            .Select(item =>
+                            {
+                                return _dataSource.getOriginalValue(item.Data[index], "name");
+                            })
+                            .ToList();
 
             filteredgos.Add(data[0].ToString());
         }
@@ -105,15 +106,17 @@ public class SpatioControlManager : MonoBehaviour
         for (int i = 0; i < _constructionObject.transform.childCount; i++)
         {
             GameObject childGO = _constructionObject.transform.GetChild(i).gameObject;
-            if(filteredgos.Contains(childGO.name))
+            if (filteredgos.Contains(childGO.name))
                 childGO.SetActive(true);
             else
                 childGO.SetActive(false);
 
-        
+
         }
 
-       
+
+
+
 
 
 
@@ -125,6 +128,59 @@ public class SpatioControlManager : MonoBehaviour
         //get the values in between the filter 
         //get their indices from original csv data source 
         //get names of game objects
+
+    }
+    public void GetDataFromID(string name)
+    {
+        //we get the filtered attribute
+        //we get the filter min max values_
+        Dictionary<string, string> dict = new Dictionary<string, string>();
+        Debug.Log(DataManager.Instance._constructionBuildingComponents);
+        
+        foreach(var constructionObject in DataManager.Instance._constructionBuildingComponents)
+        {
+            if(constructionObject.name == name)
+            {
+                dict.Add("Name", constructionObject.name);
+                dict.Add("Milestone", constructionObject.milestone);
+                dict.Add("Size", constructionObject.size.ToString());
+                dict.Add("Type", constructionObject.type);
+                dict.Add("Material", constructionObject.material);
+                dict.Add("Location", constructionObject.location);
+                dict.Add("Height", constructionObject.height.ToString());
+            }
+        }   
+        _DescriptionPanelText.text = "";
+        foreach(var item in dict)
+        {
+            _DescriptionPanelText.text += item.Key + " : " + item.Value + "\n";
+        }
+
+
+
+        /*  var indices = _dataSource
+                .Select((value, index) => new { Value = value, Index = index }) // Project each value with its index
+                .Where(item => item.Value.Equals(name, StringComparison.OrdinalIgnoreCase)) // Filter items within the range
+    *//*            .Select(item => item.Index);*//*
+
+            List<String> filteredgos = new List<string>();
+
+            foreach (var index in indices)
+            {
+                Debug.Log($"Index: {index}, Value: {dict[index]}");
+                var data = _dataSource
+                            .Where(item => item.Identifier == "name")
+                            .Select(item =>
+                            {
+                                return _dataSource.getOriginalValue(item.Data[index], "name");
+                            })
+                            .ToList();
+
+                filteredgos.Add(data[0].ToString());
+            }
+
+            Debug.Log(filteredgos[0]);*/
+
 
     }
 }

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4642344073938299736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6230920949319599760}
+  - component: {fileID: 8806130767341987827}
+  m_Layer: 0
+  m_Name: GraphManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6230920949319599760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4642344073938299736}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.0009999275, y: 1.119, z: 234.724}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8806130767341987827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4642344073938299736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924245a042d0f4b19bcfcf93de07ec38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GraphPose:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  graphLabelNumberDropDown_3D: {fileID: 0}
+  graphLabelNumberDropDown_2D: {fileID: 0}
+  graphDataLabeDropdownGOX_3D: {fileID: 0}
+  graphDataLabeDropdownGOY_3D: {fileID: 0}
+  graphDataLabeDropdownGOZ_3D: {fileID: 0}
+  dataStatusOutline_3D: {fileID: 0}
+  dataStatusOutline_2D: {fileID: 0}
+  graphDataLabeDropdownGOX_2D: {fileID: 0}
+  graphDataLabeDropdownGOY_2D: {fileID: 0}
+  graphDataLabeDropdownGOZ_2D: {fileID: 0}
+  BoxTransform: {fileID: 0}
+  SidePanelParentGO_2D: {fileID: 0}
+  SidePanelParentGO_3D: {fileID: 0}
+  SidePanelGO: {fileID: 3597978307183682802, guid: ddceede60fb780240984e3bc7367fd28, type: 3}
+  CanvasTransform: {fileID: 0}
+  GraphControlPanelPrefab_2D: {fileID: 0}
+  GraphControlPanelPrefab_3D: {fileID: 0}
+  Header: {fileID: 0}
+  visualisationObject: {fileID: 6297907297642497977, guid: c50d89bf020d03649b2642ee345a11e3, type: 3}
+  myCSVDataSource: {fileID: 0}
+  isDataReady: 0

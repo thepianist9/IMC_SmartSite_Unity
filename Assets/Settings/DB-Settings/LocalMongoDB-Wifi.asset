@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LocalMongoDB-Wifi
   m_EditorClassIdentifier: 
   DBName: mongodb
-  DBIPAddress: 192.168.188.65
+  DBIPAddress: 192.168.188.66
   DBport: 27017
   construtionPath: Construction
   BuildingAPath: BuildingA

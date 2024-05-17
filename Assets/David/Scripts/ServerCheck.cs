@@ -8,6 +8,7 @@ using System;
 using UnityEngine.SceneManagement;
 using MongoDB.Driver;
 using System.Collections;
+using System.Net.NetworkInformation;
 
 
 public class ServerCheck : MonoBehaviour
@@ -47,6 +48,8 @@ public class ServerCheck : MonoBehaviour
 
 
         m_PcName = Dns.GetHostName();
+
+        //IP that is required for the ethernet changes its index dependently on the type of pc and network architecture of a router connected to....
         m_ClientIP = Dns.GetHostEntry(m_PcName).AddressList[3].ToString(); //[1]: office, [3]: home [6]:VR PC
         LocalClient = new Client(m_PcName, m_ClientIP);
 
@@ -181,6 +184,40 @@ public class ServerCheck : MonoBehaviour
     {
         Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= ReadServerInfo;
+    }
+
+    public class NetworkIPFetcher : MonoBehaviour
+    {
+        public string GetIPAddress(NetworkInterfaceType networkType)
+        {
+            string ipAddress = "";
+
+            // Get all network interfaces
+            NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
+
+            // Iterate through each network interface
+            foreach (NetworkInterface iface in interfaces)
+            {
+                // Check if the network interface matches the specified type
+                if (iface.NetworkInterfaceType == networkType && iface.OperationalStatus == OperationalStatus.Up)
+                {
+                    // Get the IP properties of the interface
+                    IPInterfaceProperties ipProps = iface.GetIPProperties();
+
+                    // Look for IPv4 addresses assigned to this interface
+                    foreach (UnicastIPAddressInformation ipInfo in ipProps.UnicastAddresses)
+                    {
+                        if (ipInfo.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            ipAddress = ipInfo.Address.ToString();
+                            return ipAddress; // Stop after finding the first IPv4 address
+                        }
+                    }
+                }
+            }
+
+            return ipAddress;
+        }
     }
 
 

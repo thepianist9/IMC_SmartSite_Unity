@@ -168,16 +168,22 @@ public class PlayerStatsUI : NetworkBehaviour
     public void Exit()
     {
         // Clean up your NetworkBehaviour
-        SceneTransitionHandler.sceneTransitionHandler.ExitAndLoadStartMenu();
-        NetworkSystemControl.Singleton.IsOnline = false;
+        
+        if (!IsServer || !IsSpawned)
+        {
+            return;
+        }
 
-        if(NetworkSystemControl.Singleton.IsOnline)
+        if (NetworkSystemControl.Singleton.IsOnline)
         {
             NetworkManager.Singleton.Shutdown();
+            NetworkSystemControl.Singleton.IsOnline = false;
+            NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetActiveScene());
             base.OnDestroy();
         }
+        SceneTransitionHandler.sceneTransitionHandler.ExitAndLoadStartMenu();
         // Always invoked the base 
-        
+
     }
 
     public void ToggleBtn(GameObject go)

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
-
+ 
 public class AuthoringUIPanel : MonoBehaviour
 {
     [SerializeField] private ToggleGroup toggleGroup;

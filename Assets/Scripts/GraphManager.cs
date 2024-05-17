@@ -82,7 +82,7 @@ namespace XRSpatiotemopralAuthoring
         void Start()
         {
             Debug.Log($"GraphNumber: {graphNumber}");
-            if(UIManager.Instance.platform == UIManager.Platform.AR)
+            if (UIManager.Instance.platform == UIManager.Platform.AR )
             {
                 //USE 2DUI
                 graphDataLabeDropdownX_2D = graphDataLabeDropdownGOX_2D.GetComponentInChildren<TMP_Dropdown>();
@@ -92,10 +92,11 @@ namespace XRSpatiotemopralAuthoring
                 graphLabelDataDropdowns.Add(graphDataLabeDropdownX_2D);
                 graphLabelDataDropdowns.Add(graphDataLabeDropdownY_2D);
                 graphLabelDataDropdowns.Add(graphDataLabeDropdownZ_2D);
-
-
             }
-            else if(UIManager.Instance.platform == UIManager.Platform.VR || UIManager.Instance.platform == UIManager.Platform.Editor)
+
+
+
+            else if (UIManager.Instance.platform == UIManager.Platform.VR || UIManager.Instance.platform == UIManager.Platform.Editor)
             {
                 //USE 3DUI
                 graphDataLabeDropdownX_3D = graphDataLabeDropdownGOX_3D.GetComponentInChildren<TMP_Dropdown>();
@@ -116,6 +117,8 @@ namespace XRSpatiotemopralAuthoring
 
         public void setGraphLabels()
         {
+            if(dataInstance == null)
+                dataInstance = DataManager.Instance;
             if (dataInstance._constructionBuildingComponents != null)
             {
 
@@ -297,13 +300,14 @@ namespace XRSpatiotemopralAuthoring
                 GameObject toggleGO = null;
                
                 //go = GameObject.Instantiate(visualisationObject, m_GraphPosition + Vector3.forward * (graphNumber - 1), Quaternion.AngleAxis(90f, Vector3.up));
-                if (UIManager.Instance.platform == UIManager.Platform.AR)
+                if (UIManager.Instance.platform == UIManager.Platform.AR )
                 {
-                    go = GameObject.Instantiate(visualisationObject, m_GraphPose.position + Vector3.forward * (graphNumber - 1), m_GraphPose.rotation);
+
+                    go = Instantiate(visualisationObject, m_GraphPose.position + Vector3.forward * (graphNumber - 1), m_GraphPose.rotation);
                 }
                 else if(UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.VR)
                 {
-                    go = GameObject.Instantiate(visualisationObject, BoxTransform.position + Vector3.up * 1 + Vector3.forward * (graphNumber - 1), BoxTransform.rotation);
+                    go = Instantiate(visualisationObject, BoxTransform.position + Vector3.up * 1 + Vector3.forward * (graphNumber - 1), BoxTransform.rotation);
                 }
 
                 Visualisation v = go.GetComponent<Visualisation>();
@@ -311,7 +315,7 @@ namespace XRSpatiotemopralAuthoring
                 v.dataSource = csv;
                 v.geometry = AbstractVisualisation.GeometryType.Points;
 
-                if (UIManager.Instance.platform == UIManager.Platform.AR)
+                if ( UIManager.Instance.platform == UIManager.Platform.AR)
                 {
                     switch (NoOfAxis)
                     {
@@ -358,7 +362,7 @@ namespace XRSpatiotemopralAuthoring
                     //set in 2D graph panel
                     toggleGO = Instantiate(SidePanelGO, SidePanelParentGO_2D.transform);
                 }
-                else if (UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.VR)
+                else if (UIManager.Instance.platform == UIManager.Platform.VR|| UIManager.Instance.platform == UIManager.Platform.Editor)
                 {
                     switch (NoOfAxis)
                     {
@@ -437,7 +441,7 @@ namespace XRSpatiotemopralAuthoring
                 Toggle toggle = toggleGO.GetComponentInChildren<Toggle>();
                 toggle.isOn = true;
 
-                if (UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.VR)
+                if (UIManager.Instance.platform == UIManager.Platform.VR)
                 {
                     toggle.group = SidePanelParentGO_3D.GetComponent<ToggleGroup>();
                     currentGraphControlManager = GraphControlPanelPrefab_3D.GetComponent<GraphsControlManager>();
@@ -447,7 +451,7 @@ namespace XRSpatiotemopralAuthoring
                 
 
 
-                if (UIManager.Instance.platform == UIManager.Platform.AR)
+                if (UIManager.Instance.platform == UIManager.Platform.Editor || UIManager.Instance.platform == UIManager.Platform.AR)
                 {
                     toggle.group = SidePanelParentGO_2D.GetComponent<ToggleGroup>();
                     currentGraphControlManager = GraphControlPanelPrefab_2D.GetComponent<GraphsControlManager>();

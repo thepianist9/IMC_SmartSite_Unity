@@ -25,6 +25,7 @@ namespace XRSpatiotemopralAuthoring
             {
                 _Instance = this;
             }
+            DontDestroyOnLoad(this.gameObject);
         }
 
         public void Start()
@@ -63,14 +64,8 @@ namespace XRSpatiotemopralAuthoring
                     dataFileCSV += $"{obj.id},{obj.name},{obj.milestone},{obj.size},{obj.type},{obj.material},{obj.location},{obj.height}\n"; // Data rows
                 }
                 Debug.Log("[DataManager]: Convert to CSV successful");
-                if (UIManager.Instance.platform == UIManager.Platform.Mobile)
-                {
-                    _UIBorderAR.color = Color.green;
-                }
-                else if(UIManager.Instance.platform == UIManager.Platform.Editor)
-                {
-                    _UIBorder.color = Color.green;
-                }
+                //2d<0>3d<1>
+                _UIBorder.color = Color.green;
                 
             }
             catch (Exception ex)

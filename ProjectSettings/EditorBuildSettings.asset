@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/David/Scenes/NetworkedSession.unity
     guid: 6419a95f46d80c542a083a51891d0d1d
+  - enabled: 0
+    path: Assets/David/Scenes/New Scene.unity
+    guid: ba9004e2b4a16ba4ebb135228e50c240
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6eaa3ba33ebd11e41bc5e6168d8474fe, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 737334875c3804343b276a6a2593381f, type: 2}

@@ -30,6 +30,7 @@ public class ClientPlayerMove : NetworkBehaviour
 
     [SerializeField]
     PlayerInput m_PlayerInput;
+    [SerializeField] StarterAssetsInputs m_StarterAssetsInputs;
 
     RaycastHit[] m_HitColliders = new RaycastHit[4];
 
@@ -56,6 +57,12 @@ public class ClientPlayerMove : NetworkBehaviour
             Cursor.visible = true;
         if (Cursor.lockState == CursorLockMode.Locked || Cursor.lockState == CursorLockMode.Confined)
             Cursor.lockState = CursorLockMode.None;
+
+        if(Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            m_StarterAssetsInputs.cursorInputForLook = !m_StarterAssetsInputs.cursorInputForLook;
+        }
+        
     }
 
     public override void OnNetworkSpawn()

@@ -53,9 +53,9 @@ namespace XRSpatiotemopralAuthoring
             //Editor
             else if ((Application.platform == RuntimePlatform.WindowsEditor) || (Application.platform == RuntimePlatform.OSXEditor) || (Application.platform == RuntimePlatform.LinuxEditor))
             {
-                platform = Platform.Editor;
+                platform = Platform.VR;
 
-                SetVRMode();
+                //Set2dMode();
             }
             //Standalone Desktop
             else if ((Application.platform == RuntimePlatform.WindowsPlayer) || (Application.platform == RuntimePlatform.OSXPlayer) || (Application.platform == RuntimePlatform.LinuxPlayer))
@@ -88,9 +88,20 @@ namespace XRSpatiotemopralAuthoring
 
                 case Platform.VR:
                     //VR UI
-                    if(Input.GetKeyDown(KeyCode.M))
+                    //toggle UI
+                    if (Input.GetKeyDown(KeyCode.M))
                     {
+                        if (threeDGraphPanel.activeSelf == false && spatialThreeDPanel.activeSelf == false)
+                            spatialThreeDPanel.SetActive(true);
                         threeDUI.SetActive(!threeDUI.activeSelf);
+                    }
+                    //swap UI
+                    if (Input.GetKeyDown(KeyCode.N))
+                    {
+                        Debug.Log("N pressed");
+                        threeDGraphPanel.SetActive(!threeDGraphPanel.activeSelf);
+                        spatialThreeDPanel.SetActive(!spatialThreeDPanel.activeSelf);
+
                     }
                     break;
                 case Platform.AR:
@@ -99,8 +110,7 @@ namespace XRSpatiotemopralAuthoring
 
 
                 case (Platform.Editor):
-                    if (threeDUI != null)
-                    {
+
                         //toggle UI
                         if (Input.GetKeyDown(KeyCode.M))
                         {
@@ -109,15 +119,16 @@ namespace XRSpatiotemopralAuthoring
                             threeDUI.SetActive(!threeDUI.activeSelf);
                         }
                         //swap UI
-                        if (Input.GetKeyDown(KeyCode.N))
+                        if (Input.GetKeyDown(KeyCode.U))
                         {
-                            threeDGraphPanel.SetActive(spatialThreeDPanel.activeSelf);
+                        Debug.Log("N pressed");
+                            threeDGraphPanel.SetActive(!threeDGraphPanel.activeSelf);
                             spatialThreeDPanel.SetActive(!spatialThreeDPanel.activeSelf);
-                            
+
                         }
                         //RaycastUI3D();
 
-                    }
+                   
                     break;
 
                 case Platform.Desktop:
@@ -133,7 +144,7 @@ namespace XRSpatiotemopralAuthoring
                     }
                     break;
                 default:
-                    print("[UI Manager]: Unable to recognize Platform");
+                    /*print("[UI Manager]: Unable to recognize Platform");*/
                     break;
             }
         }
@@ -158,6 +169,11 @@ namespace XRSpatiotemopralAuthoring
             //set camera for ar
             //spawn building
         } 
+
+        private void Set2dMode()
+        {
+            twoDUI.SetActive(true);
+        }
         private void SetVRMode()
         {
             //remove and 3d Objects

@@ -1043,6 +1043,7 @@ GameObject:
   - component: {fileID: 2119255914798995151}
   - component: {fileID: 8752500688949617210}
   - component: {fileID: 7958364261577481598}
+  - component: {fileID: -5440865301237294462}
   m_Layer: 8
   m_Name: PlayerArmature_Networked
   m_TagString: Player
@@ -1314,7 +1315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2194103150
+  GlobalObjectIdHash: 4038502686
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 1
@@ -1355,6 +1356,7 @@ MonoBehaviour:
   m_CapsuleCollider: {fileID: 2594053536147907850}
   m_CameraFollow: {fileID: 8338988566280778637}
   m_PlayerInput: {fileID: 4416926081852918493}
+  m_StarterAssetsInputs: {fileID: 0}
 --- !u!114 &2119255914798995151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1448,6 +1450,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f785fa4cc4c82a245864665e37d7e3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5440865301237294462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d99658f14649043a50ebc207fbfc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4523139366846529165

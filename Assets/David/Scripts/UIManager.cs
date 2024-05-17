@@ -2,12 +2,16 @@ using MongoDB.Bson.Serialization.Serializers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
 using UnityEngine.UI;
+
+
+
 
 public class UIManager : MonoBehaviour
 {
@@ -19,6 +23,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject m_ServerButtonGroup;
     [SerializeField] private GameObject m_ServerButtonPrefab;
+    [SerializeField] private GameObject DescriptionPanel;
+    [SerializeField] private Toggle editButton;
+    [SerializeField] private Image editImage;
 
     [SerializeField] private TMP_InputField m_NetworkType;
     [SerializeField] private TMP_InputField m_PcName;
@@ -35,6 +42,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_InputField m_IPv4AddIPFieldRemote; //
     [SerializeField] private TMP_Text m_SubtitleText;
     [SerializeField] private TMP_Text m_TitleText;
+    [SerializeField] private SelectTransformGizmo m_SelectTransformGizmo;
 
     [SerializeField] private GameObject m_ServerNetworkType;
     private GameObject OnlineCanvas;
@@ -212,9 +220,8 @@ public class UIManager : MonoBehaviour
                 if(OnlineCanvas)
                     OnlineCanvas.SetActive(!OnlineCanvas.activeSelf);
                 //toggle menu
-                ToggleMenuPanel.SetActive(!ToggleMenuPanel.activeSelf);
-                AuthoringUI.SetActive(!AuthoringUI.activeSelf);
 
+                ToggleMenu();
             }
             else
             {
@@ -222,6 +229,7 @@ public class UIManager : MonoBehaviour
                 //toggle menu
                 ToggleMenuPanel.SetActive(!ToggleMenuPanel.activeSelf);
                 AuthoringUI.SetActive(!AuthoringUI.activeSelf);
+                
             }
            
         }
@@ -230,11 +238,37 @@ public class UIManager : MonoBehaviour
             Debug.Log("Scene not Loaded");
             offlineOverviewPanel.SetActive(!offlineOverviewPanel.activeSelf);
             //toggle menu
-            ToggleMenuPanel.SetActive(!ToggleMenuPanel.activeSelf);
-            AuthoringUI.SetActive(!AuthoringUI.activeSelf);
+            ToggleMenu();
+
         }
        
 
+    }
+
+    public void ToggleMenu()
+    {
+        ToggleMenuPanel.SetActive(!ToggleMenuPanel.activeSelf);
+        AuthoringUI.SetActive(!AuthoringUI.activeSelf);
+        DescriptionPanel.SetActive(!DescriptionPanel.activeSelf);
+    }
+
+    public void ToggleEditMode()
+    {
+
+        if(editButton.isOn)
+        {
+            editImage.color = new Color(0, 1, 0.9f);
+            
+        }
+        else
+        {
+            editImage.color = new Color(0, 0.6f, 1);
+        }
+    }
+
+    public void EditSceneRuntime()
+    {
+        m_SelectTransformGizmo.enabled = !m_SelectTransformGizmo.enabled;
     }
     
     public void SetIPAddr()
@@ -252,6 +286,7 @@ public class UIManager : MonoBehaviour
     public void ToggleOfflineOverviewPanel()
     {
         offlineOverviewPanel.SetActive(!offlineOverviewPanel.activeSelf);
+        
     }
 
 
