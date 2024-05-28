@@ -143,7 +143,7 @@ Material:
     - g_flOutlineWidth: 0.0136
     m_Colors:
     - _BaseColor: {r: 0.06617645, g: 1, b: 0.72951317, a: 0.216}
-    - _Color: {r: 0.06617643, g: 1, b: 0.72951317, a: 0.216}
+    - _Color: {r: 0.06617645, g: 1, b: 0.72951317, a: 0.216}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
     - _IndexPos: {r: 15, g: 15, b: 15, a: 15}

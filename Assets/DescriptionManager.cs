@@ -11,7 +11,8 @@ public class DescriptionManager : MonoBehaviour
     {
         if (descriptionText.text.Equals(""))
         {
-            gameObject.SetActive(false);
+            
+            descriptionText.text = "No Description Available";
         }
     }
 

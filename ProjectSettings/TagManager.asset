@@ -18,6 +18,7 @@ TagManager:
   - AR_Construction
   - OnlineUI
   - Selectable
+  - Construction
   layers:
   - Default
   - TransparentFX
@@ -49,7 +50,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - XR Simulation
   - HMDOnly
   m_SortingLayers:
   - name: Default

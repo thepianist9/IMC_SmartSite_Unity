@@ -36,6 +36,15 @@ namespace XRSpatiotemopralAuthoring
             Debug.Log($"Connected to: {dBConnectionString}");
             
         }
+        public List<Project> RetrieveProjectCollection(string collectionName)
+        {
+            var database = _mongoClient.GetDatabase("local");
+            var constructionCollection = database.GetCollection<Project>(collectionName);
+            var documents = constructionCollection.Find(_ => true).ToList(); // Retrieve all documents in the collection
+            Debug.Log($"documents fetched from {collectionName}");
+
+            return documents;
+        }
 
         public List<ConstructionBuilding> RetrieveCollection(string collectionName)
         {

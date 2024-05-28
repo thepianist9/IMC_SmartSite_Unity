@@ -160,15 +160,18 @@ public class BrushingAndLinking : MonoBehaviour {
         {
             if (hasInitialised)
             {
+               
                 UpdateBrushTexture();
 
                 UpdateBrushedIndices();
+         
             }
             else
             {
                 InitialiseBuffersAndTextures(brushingVisualisations[0].dataSource.DataCount);
             }
         }
+       
         
     }
 

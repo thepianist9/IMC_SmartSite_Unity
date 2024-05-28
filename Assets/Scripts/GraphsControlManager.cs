@@ -17,7 +17,7 @@ namespace XRSpatiotemopralAuthoring
 
 
         public Visualisation visualisation;
-        public Slider slider;
+        public Slider sizeSlider;
         public TMP_Dropdown X_AxisDropDown;
         public TMP_Dropdown Y_AxisDropDown;
         public TMP_Dropdown Z_AxisDropDown;
@@ -100,7 +100,7 @@ namespace XRSpatiotemopralAuthoring
         {
             if (visualisation != null)
             {
-                visualisation.size = slider.value;
+                visualisation.size = sizeSlider.value;
                 visualisation.updateViewProperties(AbstractVisualisation.PropertyType.SizeValues);
             }
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,11 @@ namespace XRSpatiotemopralAuthoring
         private DBNetworkingManager _dbNetworkingManager;
         [SerializeField] private Image _UIBorder;
         [SerializeField] private Image _UIBorderAR;
+        [SerializeField] private TMP_Dropdown _projectDropdown;
 
+        [SerializeField] private List<GameObject> _projectModels = new List<GameObject>();
+        private List<Project> _projectList;
+        private List<string> _projectNames;
         public List<ConstructionBuilding> _constructionBuildingComponents { private set; get; }
 
         public string dataFileCSV { private set; get; }
@@ -31,6 +36,7 @@ namespace XRSpatiotemopralAuthoring
         public void Start()
         {
             _dbNetworkingManager = DBNetworkingManager.Instance;
+            _projectNames = new List<string>();
         }
 
         // Start is called before the first frame update
@@ -39,10 +45,18 @@ namespace XRSpatiotemopralAuthoring
             try
             {
                 _dbNetworkingManager.Connect();
-                _constructionBuildingComponents = _dbNetworkingManager.RetrieveCollection("Construction");
-                if (_constructionBuildingComponents != null)
+                //Get Project List
+                _projectList = _dbNetworkingManager.RetrieveProjectCollection("Projects");
+                if (_projectList != null)
                 {
-                    ConvertCSV(_constructionBuildingComponents);
+                    Debug.Log("[DataManager]: Retrieve project list successful");
+                    _projectNames.Add("Select Project");
+
+                    foreach (Project project in _projectList)
+                    {
+                        _projectNames.Add(project.ProjectName);
+                    }
+                    _projectDropdown.AddOptions(_projectNames);
                 }
             }
             catch (Exception ex)
@@ -50,6 +64,36 @@ namespace XRSpatiotemopralAuthoring
                 Debug.LogException(ex);
             }
             
+        }
+
+
+
+        public void RetrieveProjectData()
+        {
+            try
+            {
+                string projectName = _projectDropdown.options[_projectDropdown.value].text;
+
+                _constructionBuildingComponents = _dbNetworkingManager.RetrieveCollection(projectName);
+                if (_constructionBuildingComponents != null)
+                {
+                    ConvertCSV(_constructionBuildingComponents);
+                    Debug.Log("[DataManager]: Retrieve project data successful");
+                    //Load Corresponding 3d Model
+                    LoadConstructionModel(projectName);
+                }
+                else
+                {
+                    Debug.Log("[DataManager]: Retrieve project data failed");
+                    _UIBorder.color = Color.red;
+                }
+                
+                
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
         }
 
 
@@ -71,6 +115,7 @@ namespace XRSpatiotemopralAuthoring
             catch (Exception ex)
             {
                 Debug.LogException(ex);
+                _UIBorder.color = Color.red;
             }
 
 
@@ -96,7 +141,25 @@ namespace XRSpatiotemopralAuthoring
             return dataFileCSV;
 
         }
-    }
-    
- }
+        public void LoadConstructionModel(string projectName)
+        {
+
+            //Load 3d Model
+            //2d<0>3d<1>
+            foreach (GameObject model in _projectModels)
+            {
+                if (model.name == projectName)
+                {
+                    model.SetActive(true);
+                }
+                else
+                {
+                    model.SetActive(false);
+                }
+            }
+            Debug.Log("[DataManager]: Load 3d Model successful");
+        }
+            
+        }
+}
 

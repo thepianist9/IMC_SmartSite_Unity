@@ -27,7 +27,7 @@ public class ServerCheck : MonoBehaviour
 
 
     private MongoClient _mongoClient;
-    [SerializeField] private string dBConnectionString = "mongodb://192.168.188.21:27017";
+    [SerializeField] private string dBConnectionString;//"mongodb://192.168.188.21:27017"
     [SerializeField] private bool dbLocal = true;
             
     public static ServerCheck Instance;
@@ -50,7 +50,7 @@ public class ServerCheck : MonoBehaviour
         m_PcName = Dns.GetHostName();
 
         //IP that is required for the ethernet changes its index dependently on the type of pc and network architecture of a router connected to....
-        m_ClientIP = Dns.GetHostEntry(m_PcName).AddressList[3].ToString(); //[1]: office, [3]: home [6]:VR PC
+        m_ClientIP = Dns.GetHostEntry(m_PcName).AddressList[1].ToString(); //[1]: office, [3]: home [6]:VR PC
         LocalClient = new Client(m_PcName, m_ClientIP);
 
 

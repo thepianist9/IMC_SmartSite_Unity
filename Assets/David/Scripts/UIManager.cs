@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
 using UnityEngine.UI;
+using XRSpatiotemopralAuthoring;
 
 
 
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject _ServerPrefab;
     [SerializeField] private GameObject AuthoringUI;
+    [SerializeField] private TPPCameraSwitcher tppCameraSwitcher;
 
     [SerializeField] private GameObject m_ServerButtonGroup;
     [SerializeField] private GameObject m_ServerButtonPrefab;
@@ -30,6 +32,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_InputField m_NetworkType;
     [SerializeField] private TMP_InputField m_PcName;
     [SerializeField] private GameObject ToggleMenuPanel;
+
+    [SerializeField] private List<GameObject> CircularUIList3D;
+    private int CircularUIIndex3D = 0;
+    private GameObject CircularUIElement;
+
+    //TODO 2D UICircularMenu
 
     [SerializeField] private GameObject m_ConfigPanel;
     [SerializeField] private GameObject m_OfflineMenu;
@@ -66,13 +74,43 @@ public class UIManager : MonoBehaviour
         {
             m_PcName.text = ServerCheck.Instance.m_PcName;
         }
+        if (SceneManager.GetActiveScene().name == "OfflineSession")
+        {
 
+            if (PlatformManager.Instance.platform == PlatformManager.Platform.Desktop || PlatformManager.Instance.platform == PlatformManager.Platform.Editor)
+            {
+                CircularUIElement = CircularUIList3D[CircularUIIndex3D];
+            }
+        }
         SceneManager.sceneLoaded += OnSceneLoaded;
         
         m_IPv4AddIPField.text = ServerCheck.Instance.m_ClientIP;
 
         //Switch UI based on whether client is offline or online
         SwitchUI();
+    }
+
+    private void Update()
+    {
+        if(SceneManager.GetActiveScene().name == "OfflineSession")
+        {
+            //For Desktop and Editor
+            if (PlatformManager.Instance.platform == PlatformManager.Platform.Desktop || PlatformManager.Instance.platform == PlatformManager.Platform.Editor)
+            {
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    CircularUIActivation(false);
+                }
+                //swap UI
+                if (Input.GetKeyDown(KeyCode.N))
+                {
+                    CircularUIActivation(true);
+                }
+            }
+        }
+
+        
+        //TODO: Add context switch for VR
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -207,6 +245,7 @@ public class UIManager : MonoBehaviour
 
     }
 
+
     public void TogglePanel()
     {
         
@@ -244,6 +283,39 @@ public class UIManager : MonoBehaviour
        
 
     }
+    public void CircularUIActivation( bool switchNext )
+    {
+        if(switchNext)
+        {
+            Debug.Log("Switching to next UI element");
+            int totalElements = CircularUIList3D.Count;
+
+            // Deactivate all elements in the list
+            foreach (GameObject element in CircularUIList3D)
+            {
+                element.SetActive(false);
+            }
+
+            // Activate the current element and update the index
+            CircularUIElement = CircularUIList3D[CircularUIIndex3D];
+            CircularUIElement.SetActive(true);
+
+            CircularUIIndex3D = (CircularUIIndex3D + 1) % totalElements;
+        }
+        else
+        {
+
+            CircularUIElement.SetActive(!CircularUIElement.activeSelf);
+        }
+       
+    }
+
+    public void SwitchContextMenu()
+    {
+        tppCameraSwitcher.SetTPPView();
+        CircularUIActivation(false);
+    }
+
 
     public void ToggleMenu()
     {
