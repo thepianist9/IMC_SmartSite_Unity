@@ -12,7 +12,7 @@ public class DescriptionManager : MonoBehaviour
         if (descriptionText.text.Equals(""))
         {
             
-            descriptionText.text = "No Description Available";
+            descriptionText.text = "No Object Selected";
         }
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -72,15 +73,15 @@ namespace XRSpatiotemopralAuthoring
         {
             try
             {
-                string projectName = _projectDropdown.options[_projectDropdown.value].text;
+                //string projectName = _projectDropdown.options[_projectDropdown.value].text;
 
-                _constructionBuildingComponents = _dbNetworkingManager.RetrieveCollection(projectName);
+                _constructionBuildingComponents = _dbNetworkingManager.RetrieveCollection("Simple Building");
                 if (_constructionBuildingComponents != null)
                 {
                     ConvertCSV(_constructionBuildingComponents);
                     Debug.Log("[DataManager]: Retrieve project data successful");
                     //Load Corresponding 3d Model
-                    LoadConstructionModel(projectName);
+                    LoadConstructionModel("Simple Building");
                 }
                 else
                 {
@@ -123,6 +124,13 @@ namespace XRSpatiotemopralAuthoring
         }
         public string ConvertCSV()
         {
+            if(_constructionBuildingComponents == null)
+            {
+                _constructionBuildingComponents = _dbNetworkingManager.RetrieveCollection("Simple Building");
+            }
+           
+
+            
             try
             {
                 // Construct CSV string

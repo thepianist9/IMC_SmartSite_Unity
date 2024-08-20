@@ -1,13 +1,9 @@
-using MongoDB.Bson.Serialization.Serializers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Splines;
 using UnityEngine.UI;
 using XRSpatiotemopralAuthoring;
 
@@ -61,6 +57,7 @@ public class UIManager : MonoBehaviour
     {
         if (Instance != null)
         {
+            Debug.Log("instance exists");
             // As long as you aren't creating multiple NetworkManager instances, throw an exception.
             // (***the current position of the callstack will stop here***)
             throw new Exception($"Detected more than one instance of {nameof(UIManager)}! " +
@@ -82,9 +79,14 @@ public class UIManager : MonoBehaviour
                 CircularUIElement = CircularUIList3D[CircularUIIndex3D];
             }
         }
+        else if (SceneManager.GetActiveScene().name == "StartMenu")
+        {
+            m_IPv4AddIPField.text = ServerCheck.Instance.m_ClientIP;
+        }
+
         SceneManager.sceneLoaded += OnSceneLoaded;
         
-        m_IPv4AddIPField.text = ServerCheck.Instance.m_ClientIP;
+        
 
         //Switch UI based on whether client is offline or online
         SwitchUI();
@@ -134,6 +136,7 @@ public class UIManager : MonoBehaviour
 
         //change config title to client 
         m_SubtitleText.text = "GameClient Config";
+        m_ServerButtonGroup.SetActive(true);
         NetworkSystemControl.Singleton.m_ClientType = "GameClient";
         //display button for each server in server list 
         foreach (Server server in serverList)

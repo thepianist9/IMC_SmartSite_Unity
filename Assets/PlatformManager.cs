@@ -60,6 +60,7 @@ namespace XRSpatiotemopralAuthoring
             {
                 platform = Platform.Editor;
                 SetDesktopMode();
+
             }
             //  Platform: Standalone Desktop COMPLETELY VIRTUAL
             else if ((Application.platform == RuntimePlatform.WindowsPlayer) || (Application.platform == RuntimePlatform.OSXPlayer) || (Application.platform == RuntimePlatform.LinuxPlayer))

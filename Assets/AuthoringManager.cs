@@ -4,12 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
-using IATK;
-using System;
-using XRSpatiotemopralAuthoring;
 using TMPro;
-using XRSpatiotemopralAuthoring;
 
 namespace XRSpatiotemopralAuthoring
 {

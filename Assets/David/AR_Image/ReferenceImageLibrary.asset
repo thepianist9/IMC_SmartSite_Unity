@@ -21,19 +21,19 @@ MonoBehaviour:
       m_GuidLow: 4656189005789305033
       m_GuidHigh: 5773722956124489105
     m_SerializedTextureGuid:
-      m_GuidLow: 18407448364494029267
-      m_GuidHigh: 17815375024129445979
-    m_Size: {x: 0, y: 0}
-    m_SpecifySize: 0
-    m_Name: construction
-    m_Texture: {fileID: 2800000, guid: bb0301d364c2ff745b109acd31ed3cf7, type: 3}
+      m_GuidLow: 5874016845116802122
+      m_GuidHigh: 7097496809470550921
+    m_Size: {x: 0.08, y: 0.05323636}
+    m_SpecifySize: 1
+    m_Name: ConstructionObject
+    m_Texture: {fileID: 2800000, guid: e1d9044ab332518489e3f57abe5f7f62, type: 3}
   - m_SerializedGuid:
       m_GuidLow: 4987884936233875798
       m_GuidHigh: 13987894658403625088
     m_SerializedTextureGuid:
-      m_GuidLow: 13241970419467033868
-      m_GuidHigh: 6372534175675682410
+      m_GuidLow: 7504229013503604751
+      m_GuidHigh: 16069092486143635898
     m_Size: {x: 0, y: 0}
     m_SpecifySize: 0
-    m_Name: chart
-    m_Texture: {fileID: 2800000, guid: 02901d0cedf0b7c46a8e2fd411ca6f58, type: 3}
+    m_Name: '[IATK] New Visualisation'
+    m_Texture: {fileID: 2800000, guid: 570ff80f60876824ba717d7b7ae200df, type: 3}

@@ -53,7 +53,7 @@ public class ConnectionNotificationManager : NetworkBehaviour
     public void Disconnect(bool obj)
     {
         NetworkManager.Singleton.Shutdown();
-        // At this point we must use the UnityEngine's SceneManager to switch back to the MainMenu
+        // At this point we must use the UnityEngine's SceneManager to switch back to the _mainMenu
         UnityEngine.SceneManagement.SceneManager.LoadScene("StartMenu");
     }
 

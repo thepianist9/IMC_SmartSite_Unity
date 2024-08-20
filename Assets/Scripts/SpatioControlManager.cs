@@ -83,7 +83,11 @@ namespace XRSpatiotemopralAuthoring
             //we get the filter min max values_
             _constructionObject = GameObject.FindGameObjectWithTag(constructionObjectTag);
             //
-            AttributeFilter attributeFilter = _graphsControlManagerInstance.visualisation.attributeFilters[0];
+            AttributeFilter attributeFilter = GraphsControlManager.Instance.visualisation.attributeFilters[0];
+            if(_dataSource == null)
+            {
+                _dataSource = _graphManager.myCSVDataSource;
+            }
 
             float min = attributeFilter.minFilter;
             float max = attributeFilter.maxFilter;

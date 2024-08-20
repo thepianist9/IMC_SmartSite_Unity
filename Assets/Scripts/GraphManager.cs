@@ -305,8 +305,11 @@ namespace XRSpatiotemopralAuthoring
                 //go = GameObject.Instantiate(visualisationObject, m_GraphPosition + Vector3.forward * (graphNumber - 1), Quaternion.AngleAxis(90f, Vector3.up));
                 if (PlatformManager.Instance.platform == PlatformManager.Platform.AR )
                 {
+                    //toggle UI
+                    //make image tracking active
+                    //if tracking successful and object spawned find the graph object  and set it to go
 
-                    go = Instantiate(visualisationObject, m_GraphPose.position + Vector3.forward * (graphNumber - 1), m_GraphPose.rotation);
+                    go = GameObject.FindGameObjectWithTag("AR_Graph");
                 }
                 else if(PlatformManager.Instance.platform == PlatformManager.Platform.Editor || PlatformManager.Instance.platform == PlatformManager.Platform.VR)
                 {

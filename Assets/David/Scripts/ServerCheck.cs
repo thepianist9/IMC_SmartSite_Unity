@@ -27,7 +27,7 @@ public class ServerCheck : MonoBehaviour
 
 
     private MongoClient _mongoClient;
-    [SerializeField] private string dBConnectionString;//"mongodb://192.168.188.21:27017"
+    [SerializeField] private string dBConnectionString = "mongodb://192.168.188.21:27017";
     [SerializeField] private bool dbLocal = true;
             
     public static ServerCheck Instance;

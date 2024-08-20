@@ -19,6 +19,7 @@ TagManager:
   - OnlineUI
   - Selectable
   - Construction
+  - AR_Graph
   layers:
   - Default
   - TransparentFX
