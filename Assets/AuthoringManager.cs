@@ -21,7 +21,21 @@ namespace XRSpatiotemopralAuthoring
         [SerializeField] private int selectedGameObjectIndex;
         [SerializeField] private TMP_Text _DescriptionPanelText;
         [SerializeField] private TPPCameraSwitcher tPPCameraSwitcher;
+        public bool sharedSpawn = false;
 
+        public static AuthoringManager Instance { get; private set; }
+
+        private void Awake()
+        {
+            if(Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(this);
+            }
+        }
 
         private void Start()
         {
@@ -85,8 +99,10 @@ namespace XRSpatiotemopralAuthoring
                         Debug.Log($"hit object at {hit.transform.position}");
                         Debug.Log(SceneManager.loadedSceneCount);
                         //spawn object and revert authoring mode
-                        if (SceneManager.loadedSceneCount > 1)
+                       
+                        if (SceneManager.loadedSceneCount > 1 && sharedSpawn == true)
                         {
+                             //check if self in private space or in shared space and then spawn online or offline
                             SpawnOnline(hit.transform.position);
                         }
                         else
