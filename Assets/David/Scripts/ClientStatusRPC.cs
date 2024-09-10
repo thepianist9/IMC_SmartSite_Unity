@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,17 +6,15 @@ using UnityEngine.UI;
 
 public class ClientStatusRPC : MonoBehaviour
 {
-    string clientId;
-    private void Start()
+    [SerializeField] TMP_Text clientId;
+    [SerializeField] Image selfIcon;
+    public void init(string userId, bool self)
     {
-        clientId = NetworkManager.Singleton.LocalClientId.ToString();
-        if (gameObject.name != clientId)
-        {
-            GetComponentInChildren<Button>().enabled = false;
-        }
+        clientId.text = userId;
+        selfIcon.enabled = self;
     }
     // Start is called before the first frame update
-    public void ReadyPlayer()
+/*    public void ReadyPlayer()
     {
         Debug.Log("Ready Player called");
         
@@ -24,7 +23,7 @@ public class ClientStatusRPC : MonoBehaviour
             Debug.Log("ClientReady!!!!!");
             NetworkLobbyControl.Instance.PlayerIsReady();
         }
-    }
+    }*/
 
    
 

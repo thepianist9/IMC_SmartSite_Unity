@@ -11,6 +11,8 @@ public class LobbyChatBehavior : NetworkBehaviour
     [SerializeField] private ChatMessage chatMessagePrefab;
     [SerializeField] private Transform messageParent;
     [SerializeField] private TMP_InputField chatInputField;
+    [SerializeField] private GameObject chat;
+    [SerializeField] private GameObject chatPanel;
 
     private const int MaximumMessages = 10;
     private List<ChatMessage> messages;
@@ -24,6 +26,17 @@ public class LobbyChatBehavior : NetworkBehaviour
         messages = new List<ChatMessage>();
 
     }
+
+    public void ToggleChat(bool isConnected)
+    {
+        chat.SetActive(isConnected);
+    }
+
+    public void ToggleChatUI()
+    {
+        chatPanel.SetActive(!chatPanel.activeSelf);
+    }
+
 
     private void Update()
     {
@@ -59,7 +72,7 @@ public class LobbyChatBehavior : NetworkBehaviour
     private void AddMessage(string message, ulong NetworkId)
     {
         var msg = Instantiate(chatMessagePrefab, messageParent);
-        string username = GameObject.Find("Player_" + NetworkId).GetComponent<GameClient>().userName.Value.ToString();
+        string username = "Client_" + NetworkId;
         msg.SetMessage(username, message);
 
         messages.Add(msg);

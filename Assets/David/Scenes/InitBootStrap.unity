@@ -356,7 +356,7 @@ PrefabInstance:
       objectReference: {fileID: 4416926081852918481, guid: 5a79b0311818e49489065c1777b75d6b, type: 3}
     - target: {fileID: 2577463361084716463, guid: a33721e9ba3981444b972ae70c494d73, type: 3}
       propertyPath: NetworkConfig.ForceSamePrefabs
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2577463361084716463, guid: a33721e9ba3981444b972ae70c494d73, type: 3}
       propertyPath: NetworkConfig.OldPrefabList.Array.size
@@ -364,12 +364,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2577463361084716463, guid: a33721e9ba3981444b972ae70c494d73, type: 3}
       propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2577463361084716463, guid: a33721e9ba3981444b972ae70c494d73, type: 3}
       propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 14a51887645bc4e408883a81201d346a, type: 2}
+      objectReference: {fileID: 11400000, guid: a9e7347e1b6a6c747998a6bc5b14cac2, type: 2}
     - target: {fileID: 2577463361084716463, guid: a33721e9ba3981444b972ae70c494d73, type: 3}
       propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[1]
       value: 

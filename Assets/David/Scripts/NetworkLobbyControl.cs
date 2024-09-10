@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -37,6 +38,8 @@ public class NetworkLobbyControl : NetworkBehaviour
     public void Awake()
     {
         Instance = this;
+        
+       
     }
 
     private void Start()

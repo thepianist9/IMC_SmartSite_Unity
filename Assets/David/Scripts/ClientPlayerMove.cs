@@ -72,6 +72,7 @@ public class ClientPlayerMove : NetworkBehaviour
         enabled = IsClient;
         gameObject.name = "Player_" + NetworkObject.OwnerClientId;
 
+
         if (!IsLocalPlayer)
         {
             enabled = false;
@@ -80,6 +81,10 @@ public class ClientPlayerMove : NetworkBehaviour
             m_PlayerInput.enabled = false;
             m_ThirdPersonController.enabled = false;
             return;
+        }
+        else
+        {
+            SetCamera();
         }
 
         // player input is only enabled on owning players
@@ -92,17 +97,17 @@ public class ClientPlayerMove : NetworkBehaviour
     public void SetCamera()
     {
         Debug.Log("Function SetCamera Called...");
-        if (IsLocalPlayer && SceneManager.GetActiveScene().name == "OfflineSession")
-        {
-            // see the note inside ServerPlayerMove why this step is also necessary for synchronizing initial player
-            // position on owning clients
-            m_PlayerInput.enabled = true;
-            m_ThirdPersonController.enabled = true;     
-            m_CharacterController.enabled = true;
-            m_CapsuleCollider.enabled = true;
-            var cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
-            cinemachineVirtualCamera.Follow = m_CameraFollow;
-        }
+        GameObject.Find("PlayerArmature_Offline").SetActive(false);
+
+        // see the note inside ServerPlayerMove why this step is also necessary for synchronizing initial player
+        // position on owning clients
+        m_PlayerInput.enabled = true;
+        m_ThirdPersonController.enabled = true;     
+        m_CharacterController.enabled = true;
+        m_CapsuleCollider.enabled = true;
+        var cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+        cinemachineVirtualCamera.Follow = m_CameraFollow;
+       
     }
 
     void OnPickUp()

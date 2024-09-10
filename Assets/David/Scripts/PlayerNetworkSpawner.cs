@@ -41,5 +41,9 @@ public class PlayerNetworkSpawner : NetworkBehaviour
             SetSpawnedNetworkObject();
         }
     }
+    private void OnApplicationQuit()
+    {
+        NetworkManager.Singleton.Shutdown();
+    }
 }
 

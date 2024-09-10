@@ -31,10 +31,6 @@ namespace XRSpatiotemopralAuthoring
             {
                 Instance = this;
             }
-            else
-            {
-                Destroy(this);
-            }
         }
 
         private void Start()
@@ -48,22 +44,31 @@ namespace XRSpatiotemopralAuthoring
         {
             //set authoring content and 
             if (go != null)
+            {
                 AuthoringGO = go;
+                selectedGameObjectIndex = gameObjects.IndexOf(go);
+            }
+
+            if (SceneManager.GetActiveScene().name == "OfflineSession")
+            {
+                ToggleAuthoringUI();
+            }
+            
             //toggleUI
-            ToggleAuthoringUI();
-            selectedGameObjectIndex = gameObjects.IndexOf(go);
+
+
             Debug.Log(selectedGameObjectIndex);
             //SetAuthoring to active
             Author();
-            if (spatioControlManager.GetDataFromID(go.name))
+           /* if (spatioControlManager.GetDataFromID(go.name))
             {
                 UIManager.Instance.SwitchDescriptionPanel();
-            }
+            }*/
         }
 
         private void ToggleAuthoringUI()
         {
-            if (AuthoringPanel != null && !SceneManager.GetActiveScene().name.Equals("Project Scene"))
+            if (AuthoringPanel != null && SceneManager.GetActiveScene().name.Equals("Project Scene"))
             {
                 UIManager.Instance.CircularUIActivation(false);
                 tPPCameraSwitcher.SetTPPView();
@@ -98,9 +103,10 @@ namespace XRSpatiotemopralAuthoring
                         // Use the hit variable to determine what was clicked on.
                         Debug.Log($"hit object at {hit.transform.position}");
                         Debug.Log(SceneManager.loadedSceneCount);
+                        Debug.Log("Shared Spawn");
                         //spawn object and revert authoring mode
                        
-                        if (SceneManager.loadedSceneCount > 1 && sharedSpawn == true)
+                        if (SceneManager.loadedSceneCount > 1)
                         {
                              //check if self in private space or in shared space and then spawn online or offline
                             SpawnOnline(hit.transform.position);
@@ -156,34 +162,41 @@ namespace XRSpatiotemopralAuthoring
         }
         void SpawnOnline(Vector3 position)
         {
-
             InitPrefabServerRpc(selectedGameObjectIndex, position, Quaternion.identity, NetworkManager.Singleton.LocalClientId);
-
-
         }
 
         [ServerRpc(RequireOwnership = false)]
         private void InitPrefabServerRpc(int GOIndex, Vector3 position, Quaternion rotation, ulong id)
         {
+            //Instantiate prefab on server
+            GameObject go = Instantiate(gameObjects[GOIndex], position, rotation);
+            InstantiateNetworkPrefabClientRpc(GOIndex, position, rotation, id);
+            go.GetComponent<NetworkObject>().Spawn();
 
-            ReceivePrefabMessageClientRPC(GOIndex, position, rotation, id);
-            isAuthoringOn = false;
-            ToggleAuthoringUI();
-            debugText.text = $"Server spawning prefab with index {selectedGameObjectIndex}";
 
         }
 
+ 
         [ClientRpc]
-        private void ReceivePrefabMessageClientRPC(int GOIndex, Vector3 position, Quaternion rotation, ulong id)
+        private void InstantiateNetworkPrefabClientRpc(int GOIndex, Vector3 position, Quaternion rotation, ulong id)
         {
-            Debug.Log($"[RPC]: Instantiating prefab: {GOIndex} requested from client {id}");
-            GameObject go = Instantiate(gameObjects[selectedGameObjectIndex], position, rotation);
-            NetworkManager.Singleton.AddNetworkPrefab(go);
-            go.GetComponent<NetworkObject>().enabled = true;
-            go.GetComponent<NetworkTransform>().enabled = true;
-            go.GetComponent<NetworkObject>().Spawn();
-            //debugMessage from server to client
-            debugText.text = $"Client with index {id} spawning prefab with index {selectedGameObjectIndex}";
+            if (IsServer)
+            {
+
+                isAuthoringOn = false;
+                ToggleAuthoringUI();
+                debugText.text = $"Server spawning prefab with index {selectedGameObjectIndex}";
+                return;
+            }
+            GameObject go = Instantiate(gameObjects[GOIndex], position, rotation);
+
+
+            
+
+
+            isAuthoringOn = false;
+            ToggleAuthoringUI();
+            debugText.text = $"Server spawning prefab with index {selectedGameObjectIndex}";
 
 
 

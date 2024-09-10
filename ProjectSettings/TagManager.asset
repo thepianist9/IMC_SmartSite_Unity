@@ -22,6 +22,8 @@ TagManager:
   - AR_Graph
   - Private Space
   - Shared Space
+  - Background
+  - MainArea
   layers:
   - Default
   - TransparentFX

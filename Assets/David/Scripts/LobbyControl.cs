@@ -62,6 +62,7 @@ public class LobbyControl : NetworkBehaviour
         SceneTransitionHandler.sceneTransitionHandler.SetSceneState(SceneTransitionHandler.SceneStates.Lobby);
     }
 
+
     private void OnUsernameListChanged(NetworkListEvent<FixedString128Bytes> changeEvent)
     {
         throw new NotImplementedException();
@@ -162,6 +163,15 @@ public class LobbyControl : NetworkBehaviour
         if (IsServer)
         {
             if (!m_ClientsInLobby.ContainsKey(clientId)) m_ClientsInLobby.Add(clientId, false);
+            GenerateUserStatsForLobby();
+
+            UpdateAndCheckPlayersInLobby();
+        }
+    } private void OnClientDisconnectedCallback(ulong clientId)
+    {
+        if (IsServer)
+        {
+            if (!m_ClientsInLobby.ContainsKey(clientId)) m_ClientsInLobby.Remove(clientId);
             GenerateUserStatsForLobby();
 
             UpdateAndCheckPlayersInLobby();

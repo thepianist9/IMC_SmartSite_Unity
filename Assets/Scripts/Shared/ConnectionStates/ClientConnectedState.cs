@@ -13,7 +13,8 @@ namespace Game
             m_ConnectionManager = connectionManager;
         }
         
-        public override void Enter() { }
+        public override void Enter() {
+        }
 
         public override void Exit() { }
         
@@ -21,11 +22,13 @@ namespace Game
         {
             m_ConnectionManager.m_NetworkManager.Shutdown();
             m_ConnectionManager.ChangeState(m_ConnectionManager.m_Offline);
+            //disable chat 1. make network chat not active 1.1. make icon white
         }
 
         public override void OnClientDisconnect(ulong clientId)
         {
             m_ConnectionManager.ChangeState(m_ConnectionManager.m_Offline);
+            //disable chat 1. make network chat not active 1.1. make icon white
         }
     }
 }

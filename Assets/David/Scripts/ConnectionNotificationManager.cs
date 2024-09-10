@@ -72,6 +72,7 @@ public class ConnectionNotificationManager : NetworkBehaviour
     private void OnClientConnectedCallback(ulong clientId)
     {
         OnClientConnectionNotification?.Invoke(clientId, ConnectionStatus.Connected);
+        PlayerStatsUI.Singleton.UpdateOnlinePanel();
     }
 
     private void OnClientDisconnectCallback(ulong clientId)

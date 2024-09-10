@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TMP_InputField m_NetworkType;
     [SerializeField] private TMP_InputField m_PcName;
+    [SerializeField] private TMP_InputField m_LastConnected;
     [SerializeField] private GameObject ToggleMenuPanel;
 
     [SerializeField] private List<GameObject> CircularUIList3D;
@@ -73,11 +74,11 @@ public class UIManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "OfflineSession")
         {
-
-            if (PlatformManager.Instance.platform == PlatformManager.Platform.Desktop || PlatformManager.Instance.platform == PlatformManager.Platform.Editor)
+            //circular list not needed for smartsite
+            /*if (PlatformManager.Instance.platform == PlatformManager.Platform.Desktop || PlatformManager.Instance.platform == PlatformManager.Platform.Editor)
             {
                 CircularUIElement = CircularUIList3D[CircularUIIndex3D];
-            }
+            }*/
         }
         else if (SceneManager.GetActiveScene().name == "StartMenu")
         {
@@ -94,7 +95,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if(SceneManager.GetActiveScene().name == "OfflineSession")
+        /*if(SceneManager.GetActiveScene().name == "OfflineSession")
         {
             //For Desktop and Editor
             if (PlatformManager.Instance.platform == PlatformManager.Platform.Desktop || PlatformManager.Instance.platform == PlatformManager.Platform.Editor)
@@ -109,9 +110,9 @@ public class UIManager : MonoBehaviour
                     CircularUIActivation(true);
                 }
             }
-        }
+        }*/
 
-        
+
         //TODO: Add context switch for VR
     }
 
@@ -177,6 +178,9 @@ public class UIManager : MonoBehaviour
             {
                 m_SubtitleText.text = "Server";
                 m_IPv4AddIPFieldRemote.text = ServerCheck.Instance.server.ipaddress;
+                m_NetworkType.text = ServerCheck.Instance.server.Type;
+                /*m_LastConnected.GetComponentInChildren<TMP_Text>().text = ServerCheck.Instance.server.LastConnected;*/
+               
 
             }
             else

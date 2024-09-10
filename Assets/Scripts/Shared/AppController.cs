@@ -1,6 +1,8 @@
 using System;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game
 {
@@ -16,6 +18,15 @@ namespace Game
 
         [SerializeField]
         OptionalConnectionManager m_ConnectionManager;
+        ushort port = 7777;
+
+
+        //UI for input for network configuration
+        [SerializeField] private TMP_InputField IpAddress;
+
+        [SerializeField] private Button HostButton;
+        [SerializeField] private Button ClientButton;
+        [SerializeField] private Button DisconnectButton;
         
 
         void Awake()
@@ -26,7 +37,9 @@ namespace Game
 
         void Start()
         {
-
+            HostButton.onClick.AddListener(StartHost);
+            ClientButton.onClick.AddListener(StartClient);
+            DisconnectButton.onClick.AddListener(Disconnect);
             
             m_NetworkManager.OnClientConnectedCallback += OnClientConnected;
             m_NetworkManager.OnClientDisconnectCallback += OnClientDisconnect;
@@ -35,6 +48,10 @@ namespace Game
 
         void OnDestroy()
         {
+            HostButton.onClick.RemoveAllListeners();
+            ClientButton.onClick.RemoveAllListeners();
+            DisconnectButton.onClick.RemoveAllListeners();
+
             m_NetworkManager.OnClientConnectedCallback -= OnClientConnected;
             m_NetworkManager.OnClientDisconnectCallback -= OnClientDisconnect;
 
@@ -49,6 +66,7 @@ namespace Game
             {
                 if (clientId == m_NetworkManager.LocalClientId)
                 {
+
                     //m_InGameUI.AddConnectionUIInstance(clientId, new int[] { }, new string[] { });
                 }
                 else
@@ -90,12 +108,36 @@ namespace Game
         
         void StartHost()
         {
-            Debug.Log(nameof(StartHost));
+            //LOCAL HOST
+
+            Debug.Log("[APP CONTROLLER]:Started Host on: " + nameof(StartHost));
+            if (IpAddress.text != null)
+            {
+                m_ConnectionManager.StartHostIp(IpAddress.text, port);
+                Debug.Log("[APP CONTROLLER]:Started Host on: " + nameof(StartHost));
+            }
+            else
+            {
+                Debug.Log("[APP CONTROLLER]: Port entered not in correct format");
+            }
+
+
         }
-        
+
         void StartClient()
         {
-            Debug.Log(nameof(StartClient));
+            //START CLIENT
+            ushort port = 7777;
+            Debug.Log("[APP CONTROLLER]:Started Host on: " + nameof(StartClient));
+            if (IpAddress.text != null)
+            {
+                m_ConnectionManager.StartClientIp(IpAddress.text, port);
+                Debug.Log("[APP CONTROLLER]:Started Host on: " + nameof(StartClient));
+            }
+            else
+            {
+                Debug.Log("[APP CONTROLLER]: Port entered not in correct format");
+            }
         }
 
         public void Disconnect()

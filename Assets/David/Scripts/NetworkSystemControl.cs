@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
 using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP; 
@@ -121,6 +122,10 @@ public class NetworkSystemControl : MonoBehaviour
     {
         // sanitize the input for the ip address
         return Regex.Replace(dirtyString, "[^A-Za-z0-9.]", "");
-    } 
+    }
+    private void OnApplicationQuit()
+    {
+        NetworkManager.Singleton.Shutdown();
+    }
 
 }
