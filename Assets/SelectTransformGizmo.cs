@@ -21,12 +21,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using RuntimeHandle;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
+using Unity.XR.CoreUtils;
 
 public class SelectTransformGizmo : MonoBehaviour
 {
+    [Header("Material for edit")]
     public Material highlightMaterial;
     public Material selectionMaterial;
+    [SerializeField] private Image editSpaceImage;
+
+    [Header("UI Colors")]
+    [SerializeField] private Color NonEditColor;
+    [SerializeField] private Color EditColor;
+
 
     private Material originalMaterialHighlight;
     private Material originalMaterialSelection;
@@ -42,6 +50,10 @@ public class SelectTransformGizmo : MonoBehaviour
 
     private void Start()
     {
+        Reset();
+    }
+    private void Reset()
+    {
         runtimeTransformGameObj = new GameObject();
         runtimeTransformHandle = runtimeTransformGameObj.AddComponent<RuntimeTransformHandle>();
         runtimeTransformGameObj.layer = runtimeTransformLayer;
@@ -54,35 +66,49 @@ public class SelectTransformGizmo : MonoBehaviour
 
     void Update()
     {
+
         if (select)
         {
+            Debug.Log("Entering Update loop");
             // Highlight
             if (highlight != null)
             {
-                highlight.GetComponent<MeshRenderer>().sharedMaterial = originalMaterialHighlight;
+                var renderer = highlight.GetComponent<MeshRenderer>();
+                renderer.materials = new Material[] { (renderer.materials[0]) };
                 highlight = null;
             }
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out raycastHit)) //Make sure you have EventSystem in the hierarchy before using EventSystem
             {
                 highlight = raycastHit.transform;
-                if (highlight.CompareTag("Selectable") && highlight != selection)
+                var renderer = highlight.GetComponent<MeshRenderer>();
+                Debug.Log(highlight.gameObject.name);
+                if (highlight.CompareTag("ARSpawnable") && highlight != selection)
                 {
-                    if (highlight.GetComponent<MeshRenderer>().material != highlightMaterial)
+                    if (renderer.materials.Length ==  1)
                     {
-                        originalMaterialHighlight = highlight.GetComponent<MeshRenderer>().material;
-                        if (highlight.GetComponent<MeshRenderer>() != null)
-                            highlight.GetComponent<MeshRenderer>().material = highlightMaterial;
+                        originalMaterialHighlight = highlight.GetComponent<MeshRenderer>().materials[0];
+                        if (renderer != null)
+                            highlight.GetComponent<MeshRenderer>().AddMaterial(highlightMaterial);
                         else
                         {
                             MeshRenderer[] renderers = highlight.GetComponentsInChildren<MeshRenderer>();
-                            foreach (MeshRenderer renderer in renderers)
+                            foreach (MeshRenderer rendererc in renderers)
                             {
-                                renderer.material = highlightMaterial;
+                                rendererc.AddMaterial(highlightMaterial);
                             }
+                        }
+                        }
+                        
+                    else if (renderer.materials.Length > 1) //if it has more than one material maybe selected before
+                    {
+                        if (renderer.materials[1] != highlightMaterial)
+                        {
+                            renderer.materials[1]  = highlightMaterial;
                         }
                     }
                 }
+
                 else
                 {
                     highlight = null;
@@ -92,6 +118,8 @@ public class SelectTransformGizmo : MonoBehaviour
             // Selection
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
+                Debug.Log(selection);
+
                 ApplyLayerToChildren(runtimeTransformGameObj);
                 if (Physics.Raycast(ray, out raycastHit))
                 {
@@ -102,13 +130,14 @@ public class SelectTransformGizmo : MonoBehaviour
                     {
                         if (selection != null)
                         {
-                            selection.GetComponent<MeshRenderer>().material = originalMaterialSelection;
+                            selection.GetComponent<MeshRenderer>().AddMaterial(originalMaterialSelection);
                         }
                         selection = raycastHit.transform;
-                        if (selection.GetComponent<MeshRenderer>().material != selectionMaterial)
+                        var meshRenderer = selection.GetComponent<MeshRenderer>();
+                        if (selection.GetComponent<MeshRenderer>().materials[1] != selectionMaterial)
                         {
                             originalMaterialSelection = originalMaterialHighlight;
-                            selection.GetComponent<MeshRenderer>().material = selectionMaterial;
+                            meshRenderer.AddMaterial(selectionMaterial);
                             runtimeTransformHandle.target = selection;
                             runtimeTransformGameObj.SetActive(true);
                         }
@@ -118,7 +147,11 @@ public class SelectTransformGizmo : MonoBehaviour
                     {
                         if (selection)
                         {
-                            selection.GetComponent<MeshRenderer>().material = originalMaterialSelection;
+                            var meshRenderer = selection.GetComponent<MeshRenderer>();
+                            if (meshRenderer.materials.Length > 1)
+                            {
+                                meshRenderer.materials = new Material[] { meshRenderer.materials[0] };
+                            }
                             selection = null;
 
                             runtimeTransformGameObj.SetActive(false);
@@ -129,7 +162,11 @@ public class SelectTransformGizmo : MonoBehaviour
                 {
                     if (selection)
                     {
-                        selection.GetComponent<MeshRenderer>().material = originalMaterialSelection;
+                        var meshRenderer = selection.GetComponent<MeshRenderer>();
+                        if (meshRenderer.materials.Length > 1)
+                        {
+                            meshRenderer.materials = new Material[] { meshRenderer.materials[0] };
+                        }
                         selection = null;
 
                         runtimeTransformGameObj.SetActive(false);
@@ -171,6 +208,33 @@ public class SelectTransformGizmo : MonoBehaviour
     public void ToggleEdit()
     {
         select = !select;
+        if(select)
+        {
+            editSpaceImage.color = EditColor;
+            
+        }
+        else
+        {
+            editSpaceImage.color = NonEditColor;
+            runtimeTransformHandle.type = HandleType.POSITION;
+            runtimeTransformGameObj.SetActive(false);
+        }
+
+    }
+    public void ChangeHandleType(string handleType)
+    {
+        switch (handleType)
+        {
+            case "Position":
+                runtimeTransformHandle.type = HandleType.POSITION;
+                break;
+            case "Rotation":
+                runtimeTransformHandle.type = HandleType.ROTATION;
+                break;
+            case "Scale":
+                runtimeTransformHandle.type = HandleType.SCALE;
+                break;
+        }
     }
 
 

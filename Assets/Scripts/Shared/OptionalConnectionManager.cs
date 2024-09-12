@@ -24,6 +24,8 @@ namespace Game
         private GameObject ClientPanel;
         [SerializeField]
         private GameObject ClientInfoPrefab;
+        [SerializeField]
+        private ARUIManager m_ARUIManager;
 
 
         ConnectionState m_CurrentState;
@@ -77,6 +79,7 @@ namespace Game
         void OnClientConnectedCallback(ulong clientId)
         {
             m_CurrentState.OnClientConnected(clientId);
+            m_ARUIManager.SwitchOnline(true);
             RefreshClientOverviewPanel();
             if (m_NetworkManager.LocalClientId == clientId)
                 m_NetworkChat.ToggleChat(true);
@@ -85,17 +88,10 @@ namespace Game
         void RefreshClientOverviewPanel()
         {
             List<ulong> connectedClients = new List<ulong>(m_NetworkManager.ConnectedClientsIds);
+            ResetOverviewPanel();
 
             //destroy all children of server and client panel
-            foreach (Transform child in SeverPanel.transform)
-            {
-                Destroy(child.gameObject);
-            }
-            foreach (Transform child in ClientPanel.transform)
-            {
-                Destroy(child.gameObject);
-            }
-
+            
             connectedClients.ForEach(clientId =>
             {
                 bool self = m_NetworkManager.LocalClientId == clientId;
@@ -112,13 +108,38 @@ namespace Game
             });
 
         }
-        
+        private void ResetOverviewPanel()
+        {
+            foreach (Transform child in SeverPanel.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            foreach (Transform child in ClientPanel.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+        }
+
         void OnClientDisconnectCallback(ulong clientId)
         {
             m_CurrentState.OnClientDisconnect(clientId);
-            RefreshClientOverviewPanel();
+
+            //another client disconnect
+            if(m_NetworkManager.LocalClientId != clientId)
+            {
+                m_NetworkManager.DisconnectClient(clientId);
+                RefreshClientOverviewPanel();
+            }
+            //self client disconnect
             if (m_NetworkManager.LocalClientId == clientId)
+            {
+                ResetOverviewPanel();
                 m_NetworkChat.ToggleChat(false);
+            }
+
+            m_ARUIManager.SwitchOnline(false);
+
         }
         
         void OnServerStarted()

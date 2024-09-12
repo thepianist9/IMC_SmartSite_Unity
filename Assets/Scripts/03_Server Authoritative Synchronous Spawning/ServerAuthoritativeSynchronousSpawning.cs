@@ -126,8 +126,10 @@ namespace Game.ServerAuthoritativeSynchronousSpawning
         // invoked by UI
         public void OnClickedTrySpawnSynchronously(int index)
         {
-            var position = GameObject.FindGameObjectWithTag("Shared Space").transform.position;
-            var rotation = GameObject.FindGameObjectWithTag("Shared Space").transform.rotation;
+            var position = GameObject.FindGameObjectWithTag("Shared Space").transform.localPosition;
+            var rotation = GameObject.FindGameObjectWithTag("Shared Space").transform.localRotation;
+
+            //calculate offset and send to all clients
             if (!m_NetworkManager.IsServer)
             {
                 TrySpawnServerRpc
@@ -220,19 +222,24 @@ namespace Game.ServerAuthoritativeSynchronousSpawning
 
             NetworkObject Spawn(AddressableGUID assetGuid, Vector3 position, Quaternion rotation)
             {
+                Transform sharedSpace = GameObject.FindGameObjectWithTag("Shared Space").transform;
                 Vector3 pos = new Vector3(position.x, position.y + 0.05f, position.z);
                 if (!DynamicPrefabLoadingUtilities.TryGetLoadedGameObjectFromGuid(assetGuid, out var prefab))
                 {
                     Debug.LogWarning($"GUID {assetGuid} is not a GUID of a previously loaded prefab. Failed to spawn a prefab.");
                     return null;
                 }
-                var obj = Instantiate(prefab.Result,pos , rotation).GetComponent<NetworkObject>();
-                obj.Spawn();
+                var obj = Instantiate(prefab.Result, sharedSpace);
+                obj.transform.localPosition = position;
+                obj.transform.localRotation = rotation;
+                var networkObj = obj.GetComponent<NetworkObject>();
+
+                networkObj.Spawn();
                 Debug.Log("Spawned dynamic prefab");
 
                 // every client loaded dynamic prefab, their respective ClientUIs in case they loaded first
 
-                return obj;
+                return networkObj;
             }
         }
 

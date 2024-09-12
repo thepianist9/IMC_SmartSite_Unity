@@ -1,18 +1,19 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class LobbyChatBehavior : NetworkBehaviour
 {
+    [SerializeField] private NetworkManager m_NetworkManager;
     [SerializeField] private ChatMessage chatMessagePrefab;
     [SerializeField] private Transform messageParent;
     [SerializeField] private TMP_InputField chatInputField;
     [SerializeField] private GameObject chat;
     [SerializeField] private GameObject chatPanel;
+    [SerializeField] private Image chatNotificationImage;
 
     private const int MaximumMessages = 10;
     private List<ChatMessage> messages;
@@ -35,6 +36,10 @@ public class LobbyChatBehavior : NetworkBehaviour
     public void ToggleChatUI()
     {
         chatPanel.SetActive(!chatPanel.activeSelf);
+        if(chatPanel.activeSelf)
+        {
+            chatNotificationImage.enabled = false;
+        }
     }
 
 
@@ -94,5 +99,11 @@ public class LobbyChatBehavior : NetworkBehaviour
     private void ReceiveChatMessageClientRPC(string message, ulong localClientId)
     {
         AddMessage(message, localClientId);
+        if(m_NetworkManager.LocalClientId != localClientId)
+            chatNotificationImage.GetComponent<Image>().enabled = true;
     }
+
+    //algo 
+    //1. when chat panel is opened disable image 
+    //2.
 }
