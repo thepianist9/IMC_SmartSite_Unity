@@ -23,6 +23,7 @@ namespace Game
 
         //UI for input for network configuration
         [SerializeField] private TMP_InputField IpAddress;
+        private bool privateSpace = true;
 
         [SerializeField] private Button HostButton;
         [SerializeField] private Button ClientButton;
@@ -105,6 +106,11 @@ namespace Game
         void OnClientDisconnect(ulong clientId)
         {
         }
+
+        public void SetUndo(bool shared)
+        {
+            privateSpace = shared;
+        }
         
         void StartHost()
         {
@@ -122,6 +128,17 @@ namespace Game
             }
 
 
+        }
+
+        public void ResetTransform(int index)
+        {
+            if (index != null)
+            { 
+                if(privateSpace)
+                    GameObject.FindGameObjectWithTag("Private Space").transform.GetChild(index).GetComponent<ARObject>().UndoTransform();
+                else
+                    GameObject.FindGameObjectWithTag("Public Space").transform.GetChild(index).GetComponent<ARObject>().UndoTransform();
+            }
         }
 
         void StartClient()

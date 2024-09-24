@@ -25,14 +25,14 @@ Transform:
   m_GameObject: {fileID: 364759940113625633}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
+  m_LocalPosition: {x: 0, y: 0.0005, z: 0}
+  m_LocalScale: {x: 0.009999999, y: 0.009999999, z: 0.009999999}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 6344253921576586011}
   - {fileID: 7834785005327177531}
   - {fileID: 484089437650241999}
   - {fileID: 3286029677676000368}
+  - {fileID: 6344253921576586011}
   - {fileID: 6850434567081287509}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -246,6 +246,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7417341389936625983}
     m_Modifications:
+    - target: {fileID: -6816822655240696206, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1426880360
+      objectReference: {fileID: 0}
     - target: {fileID: 3571918098384118353, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
       propertyPath: name
       value: Sphere 1
@@ -298,7 +302,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -6816822655240696206, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
+    - {fileID: -4307085204814650935, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -316,6 +322,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7417341389936625983}
     m_Modifications:
+    - target: {fileID: -6816822655240696206, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1546787012
+      objectReference: {fileID: 0}
     - target: {fileID: 490510410569483210, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
       propertyPath: m_text
       value: Object 3
@@ -372,7 +382,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -6816822655240696206, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
+    - {fileID: -4307085204814650935, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -390,6 +402,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7417341389936625983}
     m_Modifications:
+    - target: {fileID: -6816822655240696206, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4081730726
+      objectReference: {fileID: 0}
     - target: {fileID: 490510410569483210, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
       propertyPath: m_text
       value: 'Object 2
@@ -448,7 +464,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -6816822655240696206, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
+    - {fileID: -4307085204814650935, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

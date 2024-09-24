@@ -23,6 +23,8 @@ using UnityEngine.EventSystems;
 using RuntimeHandle;
 using UnityEngine.UI;
 using Unity.XR.CoreUtils;
+using Game.ServerAuthoritativeSynchronousSpawning;
+using Unity.Netcode;
 
 public class SelectTransformGizmo : MonoBehaviour
 {
@@ -30,6 +32,8 @@ public class SelectTransformGizmo : MonoBehaviour
     public Material highlightMaterial;
     public Material selectionMaterial;
     [SerializeField] private Image editSpaceImage;
+    [SerializeField] private ServerAuthoritativeSynchronousSpawning serverAuthoritativeSpawning;
+    [SerializeField] private NetworkManager networkManager;
 
     [Header("UI Colors")]
     [SerializeField] private Color NonEditColor;
@@ -67,7 +71,7 @@ public class SelectTransformGizmo : MonoBehaviour
     void Update()
     {
 
-        if (select)
+        if (editSpaceImage.color == EditColor)
         {
             Debug.Log("Entering Update loop");
             // Highlight
@@ -207,20 +211,33 @@ public class SelectTransformGizmo : MonoBehaviour
 
     public void ToggleEdit()
     {
-        select = !select;
-        if(select)
+        serverAuthoritativeSpawning.RevokeOwnership();
+
+        //before activating the edit mode, check if the local client is the owner of object if not use authoritative synchronos spawning to get the ownership and once the ownership is obtained, activate the edit mode
+        if(!serverAuthoritativeSpawning.IsServer )
         {
-            editSpaceImage.color = EditColor;
-            
+            serverAuthoritativeSpawning.RequestOwnership(networkManager.LocalClientId);
         }
-        else
-        {
-            editSpaceImage.color = NonEditColor;
-            runtimeTransformHandle.type = HandleType.POSITION;
-            runtimeTransformGameObj.SetActive(false);
-        }
+        
 
     }
+
+    public void ActivateEdit()
+    {
+
+        editSpaceImage.color = EditColor;
+
+    }    
+    public void DeactivateEdit()
+    {
+
+        editSpaceImage.color = NonEditColor;
+        runtimeTransformHandle.type = HandleType.POSITION;
+        runtimeTransformGameObj.SetActive(false);
+
+    }
+
+
     public void ChangeHandleType(string handleType)
     {
         switch (handleType)

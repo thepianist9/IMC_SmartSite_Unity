@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
@@ -39,6 +41,9 @@ namespace Game.ServerAuthoritativeSynchronousSpawning
         float m_SynchronousSpawnTimeoutTimer;
 
         int m_SynchronousSpawnAckCount = 0;
+
+        [SerializeField] List<GameObject> m_DynamicSpawnedPrefabs;
+        [SerializeField] SelectTransformGizmo m_SelectTransformGizmo;
 
         void Start()
         {
@@ -223,18 +228,21 @@ namespace Game.ServerAuthoritativeSynchronousSpawning
             NetworkObject Spawn(AddressableGUID assetGuid, Vector3 position, Quaternion rotation)
             {
                 Transform sharedSpace = GameObject.FindGameObjectWithTag("Shared Space").transform;
-                Vector3 pos = new Vector3(position.x, position.y + 0.05f, position.z);
+                Vector3 pos = new Vector3(position.x, position.y + 0.5f, position.z);
                 if (!DynamicPrefabLoadingUtilities.TryGetLoadedGameObjectFromGuid(assetGuid, out var prefab))
                 {
                     Debug.LogWarning($"GUID {assetGuid} is not a GUID of a previously loaded prefab. Failed to spawn a prefab.");
                     return null;
                 }
                 var obj = Instantiate(prefab.Result, sharedSpace);
-                obj.transform.localPosition = position;
-                obj.transform.localRotation = rotation;
+                obj.transform.localPosition = pos;
+                obj.transform.localRotation = rotation;  
                 var networkObj = obj.GetComponent<NetworkObject>();
-
                 networkObj.Spawn();
+
+                m_DynamicSpawnedPrefabs.Add(obj);
+
+
                 Debug.Log("Spawned dynamic prefab");
 
                 // every client loaded dynamic prefab, their respective ClientUIs in case they loaded first
@@ -259,7 +267,7 @@ namespace Game.ServerAuthoritativeSynchronousSpawning
 
                 DynamicPrefabLoadingUtilities.TryGetLoadedGameObjectFromGuid(assetGuid, out var loadedGameObject);
 
-                AcknowledgeSuccessfulPrefabLoadServerRpc(assetGuid.GetHashCode());
+                AcknowledgeSuccessfulPrefabLoadServerRpc(assetGuid.GetHashCode()); 
             }
         }
 
@@ -290,6 +298,60 @@ namespace Game.ServerAuthoritativeSynchronousSpawning
                 }
             }
 
+        }
+
+        public bool RequestOwnership (ulong clientId)
+        {
+            if (!IsServer && clientId != null)
+            {
+                Debug.Log("Requesting ownership from server");
+                GrantOwnershipServerRPC(clientId);
+                m_SelectTransformGizmo.ActivateEdit();
+                return true;
+                
+            }
+            else 
+                return false;
+
+        }
+
+        public void RevokeOwnership()
+        {
+            if (IsServer)
+            {
+                foreach (var obj in m_DynamicSpawnedPrefabs)
+                {
+                    NetworkObject no = obj.GetComponent<NetworkObject>();
+                    no.RemoveOwnership();
+                }
+                m_SelectTransformGizmo.ActivateEdit();
+                
+            }
+            else
+            {
+                DisableEditClientRPC();
+            }
+        }
+
+        [ClientRpc]
+        private void DisableEditClientRPC()
+        {
+            m_SelectTransformGizmo.DeactivateEdit();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+
+        private void GrantOwnershipServerRPC(ulong clientId)
+        {
+            if (IsServer)
+            {
+                Debug.Log($"Granting ownership to client: {clientId}");
+                foreach (var obj in m_DynamicSpawnedPrefabs)
+                {
+                    NetworkObject no = obj.GetComponent<NetworkObject>();
+                    no.ChangeOwnership(clientId);
+                }
+            }
         }
     }
 }
