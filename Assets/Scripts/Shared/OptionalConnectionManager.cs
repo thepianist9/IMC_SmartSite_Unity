@@ -136,9 +136,10 @@ namespace Game
             {
                 ResetOverviewPanel();
                 m_NetworkChat.ToggleChat(false);
+                m_ARUIManager.SwitchOnline(false);
             }
 
-            m_ARUIManager.SwitchOnline(false);
+
 
         }
         

@@ -25,6 +25,7 @@ using UnityEngine.UI;
 using Unity.XR.CoreUtils;
 using Game.ServerAuthoritativeSynchronousSpawning;
 using Unity.Netcode;
+using Game;
 
 public class SelectTransformGizmo : MonoBehaviour
 {
@@ -34,6 +35,13 @@ public class SelectTransformGizmo : MonoBehaviour
     [SerializeField] private Image editSpaceImage;
     [SerializeField] private ServerAuthoritativeSynchronousSpawning serverAuthoritativeSpawning;
     [SerializeField] private NetworkManager networkManager;
+
+    [SerializeField] private AppController m_AppController;
+
+    [SerializeField] private Image m_PositionBtnImage;
+    [SerializeField] private Image m_RotationBtnImage;
+    [SerializeField] private Image m_ScaleBtnImage;
+    [SerializeField] private Image m_TransformBtnImage;
 
     [Header("UI Colors")]
     [SerializeField] private Color NonEditColor;
@@ -211,21 +219,31 @@ public class SelectTransformGizmo : MonoBehaviour
 
     public void ToggleEdit()
     {
-        serverAuthoritativeSpawning.RevokeOwnership();
 
-        //before activating the edit mode, check if the local client is the owner of object if not use authoritative synchronos spawning to get the ownership and once the ownership is obtained, activate the edit mode
-        if(!serverAuthoritativeSpawning.IsServer )
+        //if app controller private space then activate edit mode but if shared space then use authoritative spawning to get the ownership and then activate the edit mode
+        if (m_AppController.privateSpace)
         {
-            serverAuthoritativeSpawning.RequestOwnership(networkManager.LocalClientId);
+            ActivateEdit();
         }
-        
+        else
+        {
+            serverAuthoritativeSpawning.RevokeOwnership();
+
+            //before activating the edit mode, check if the local client is the owner of object if not use authoritative synchronos spawning to get the ownership and once the ownership is obtained, activate the edit mode
+            if (!serverAuthoritativeSpawning.IsServer)
+            {
+                serverAuthoritativeSpawning.RequestOwnership(networkManager.LocalClientId);
+            }
+        }
 
     }
 
     public void ActivateEdit()
     {
-
+        ResettransformGroupColors();
         editSpaceImage.color = EditColor;
+        m_PositionBtnImage.color = Color.green;
+        m_TransformBtnImage.color = m_AppController.privateSpace ? Color.blue : Color.green;
 
     }    
     public void DeactivateEdit()
@@ -234,22 +252,36 @@ public class SelectTransformGizmo : MonoBehaviour
         editSpaceImage.color = NonEditColor;
         runtimeTransformHandle.type = HandleType.POSITION;
         runtimeTransformGameObj.SetActive(false);
-
+        ResettransformGroupColors();
+    }
+    
+    private void ResettransformGroupColors()
+    {
+        // Reset button colors to white
+        m_PositionBtnImage.color = Color.white;
+        m_RotationBtnImage.color = Color.white;
+        m_ScaleBtnImage.color = Color.white;
     }
 
 
     public void ChangeHandleType(string handleType)
     {
+
+        ResettransformGroupColors();
+        // Change handle type and button color based on selection
         switch (handleType)
         {
             case "Position":
                 runtimeTransformHandle.type = HandleType.POSITION;
+                m_PositionBtnImage.color = Color.green;
                 break;
             case "Rotation":
                 runtimeTransformHandle.type = HandleType.ROTATION;
+                m_RotationBtnImage.color = Color.green;
                 break;
             case "Scale":
                 runtimeTransformHandle.type = HandleType.SCALE;
+                m_ScaleBtnImage.color = Color.green;
                 break;
         }
     }

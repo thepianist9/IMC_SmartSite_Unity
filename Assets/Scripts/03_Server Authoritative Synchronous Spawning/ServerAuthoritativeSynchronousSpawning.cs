@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
 using UnityEditor.PackageManager;
@@ -44,6 +45,8 @@ namespace Game.ServerAuthoritativeSynchronousSpawning
 
         [SerializeField] List<GameObject> m_DynamicSpawnedPrefabs;
         [SerializeField] SelectTransformGizmo m_SelectTransformGizmo;
+        [SerializeField] private GameObject m_messageBox;
+        [SerializeField] private AppController m_AppController;
 
         void Start()
         {
@@ -131,18 +134,28 @@ namespace Game.ServerAuthoritativeSynchronousSpawning
         // invoked by UI
         public void OnClickedTrySpawnSynchronously(int index)
         {
-            var position = GameObject.FindGameObjectWithTag("Shared Space").transform.localPosition;
-            var rotation = GameObject.FindGameObjectWithTag("Shared Space").transform.localRotation;
-
-            //calculate offset and send to all clients
-            if (!m_NetworkManager.IsServer)
+            Debug.Log($"AppController private space: {m_AppController.privateSpace}");
+            if(!m_AppController.privateSpace)
             {
-                TrySpawnServerRpc
-                    (index, position, rotation);
+                var position = GameObject.FindGameObjectWithTag("Shared Space").transform.localPosition;
+                var rotation = GameObject.FindGameObjectWithTag("Shared Space").transform.localRotation;
+
+                //calculate offset and send to all clients
+                if (!m_NetworkManager.IsServer)
+                {
+                    TrySpawnServerRpc
+                        (index, position, rotation);
+                }
+
+
+                TrySpawnSynchronously(index, position, rotation);
+            }
+            else
+            {
+                m_messageBox.SetActive(true);
+                m_messageBox.GetComponentInChildren<TMP_Text>().text = "You are in private space. Please switch to shared space to spawn objects";
             }
 
-
-            TrySpawnSynchronously(index, position, rotation);
         }
 
 
@@ -228,7 +241,7 @@ namespace Game.ServerAuthoritativeSynchronousSpawning
             NetworkObject Spawn(AddressableGUID assetGuid, Vector3 position, Quaternion rotation)
             {
                 Transform sharedSpace = GameObject.FindGameObjectWithTag("Shared Space").transform;
-                Vector3 pos = new Vector3(position.x, position.y + 0.5f, position.z);
+                Vector3 pos = new Vector3(sharedSpace.position.x+position.x, sharedSpace.position.y+position.y + 0.5f, sharedSpace.position.z + position.z);
                 if (!DynamicPrefabLoadingUtilities.TryGetLoadedGameObjectFromGuid(assetGuid, out var prefab))
                 {
                     Debug.LogWarning($"GUID {assetGuid} is not a GUID of a previously loaded prefab. Failed to spawn a prefab.");
@@ -239,6 +252,7 @@ namespace Game.ServerAuthoritativeSynchronousSpawning
                 obj.transform.localRotation = rotation;  
                 var networkObj = obj.GetComponent<NetworkObject>();
                 networkObj.Spawn();
+                networkObj.TrySetParent(sharedSpace);
 
                 m_DynamicSpawnedPrefabs.Add(obj);
 

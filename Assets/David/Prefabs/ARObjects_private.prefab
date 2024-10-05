@@ -260,7 +260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4391880262332678541, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
       propertyPath: m_Name
-      value: AR_sphere
+      value: AR_sphere 1
       objectReference: {fileID: 0}
     - target: {fileID: 7023792741990823390, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -336,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4391880262332678541, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
       propertyPath: m_Name
-      value: AR_sphere (2)
+      value: AR_sphere 3
       objectReference: {fileID: 0}
     - target: {fileID: 4862908005213532708, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -418,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4391880262332678541, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
       propertyPath: m_Name
-      value: AR_sphere (1)
+      value: AR_sphere 2
       objectReference: {fileID: 0}
     - target: {fileID: 4862908005213532708, guid: 2ed464cb9af8a564eb900a14c40f801a, type: 3}
       propertyPath: m_Materials.Array.data[0]

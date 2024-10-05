@@ -15,15 +15,22 @@ namespace Game
     {
         [SerializeField]
         NetworkManager m_NetworkManager;
+        [SerializeField]
+        SelectTransformGizmo m_selectTransformGizmo;
+        [SerializeField] private GameObject SharedSpace;
+
 
         [SerializeField]
         OptionalConnectionManager m_ConnectionManager;
         ushort port = 7777;
 
+        [SerializeField] private GameObject m_PrivateSpaceBtn;
+        [SerializeField] private GameObject m_SharedSpaceBtn;
+
 
         //UI for input for network configuration
         [SerializeField] private TMP_InputField IpAddress;
-        private bool privateSpace = true;
+        public bool privateSpace = true;
 
         [SerializeField] private Button HostButton;
         [SerializeField] private Button ClientButton;
@@ -67,7 +74,12 @@ namespace Game
             {
                 if (clientId == m_NetworkManager.LocalClientId)
                 {
-
+                    if(Application.platform == RuntimePlatform.WindowsEditor)
+                    {
+                        Transform tr = GameObject.FindGameObjectWithTag("Private Space").transform;
+                        GameObject go = Instantiate(SharedSpace, tr.position + (Vector3.right * 0.1f), tr.rotation);
+                    }
+;
                     //m_InGameUI.AddConnectionUIInstance(clientId, new int[] { }, new string[] { });
                 }
                 else
@@ -105,11 +117,26 @@ namespace Game
         
         void OnClientDisconnect(ulong clientId)
         {
+            m_PrivateSpaceBtn.GetComponent<Image>().color = Color.white;
+            m_SharedSpaceBtn.GetComponent<Image>().color = Color.white;
+            m_selectTransformGizmo.DeactivateEdit();
         }
 
         public void SetUndo(bool shared)
         {
             privateSpace = shared;
+
+            //set button color to green whichever is selected and reset other to white
+            if (privateSpace)
+            {
+                m_PrivateSpaceBtn.GetComponent<Image>().color = Color.green;
+                m_SharedSpaceBtn.GetComponent<Image>().color = Color.white;
+            }
+            else
+            {
+                m_PrivateSpaceBtn.GetComponent<Image>().color = Color.white;
+                m_SharedSpaceBtn.GetComponent<Image>().color = Color.green;
+            }
         }
         
         void StartHost()
@@ -137,7 +164,7 @@ namespace Game
                 if(privateSpace)
                     GameObject.FindGameObjectWithTag("Private Space").transform.GetChild(index).GetComponent<ARObject>().UndoTransform();
                 else
-                    GameObject.FindGameObjectWithTag("Public Space").transform.GetChild(index).GetComponent<ARObject>().UndoTransform();
+                    GameObject.FindGameObjectWithTag("Shared Space").transform.GetChild(index).GetComponent<ARObject>().UndoTransform();
             }
         }
 
